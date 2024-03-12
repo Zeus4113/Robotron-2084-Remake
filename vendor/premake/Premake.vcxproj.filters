@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="..">
+      <UniqueIdentifier>{61705900-4DFC-870B-B6AA-880BA255880B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\LowLevelGameplay">
+      <UniqueIdentifier>{CAE9BE7B-364B-9C89-BFB8-E23B2B19D348}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\LowLevelGameplay\vendor">
+      <UniqueIdentifier>{E75844AD-D368-F07D-3C22-559C2851DF16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\LowLevelGameplay\vendor\Box2D">
+      <UniqueIdentifier>{35D47E7D-2125-6ABF-4A89-58813639FD28}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\LowLevelGameplay\premake5.lua">
+      <Filter>..\LowLevelGameplay</Filter>
+    </None>
+    <None Include="..\..\LowLevelGameplay\vendor\Box2D\premake5.lua">
+      <Filter>..\LowLevelGameplay\vendor\Box2D</Filter>
+    </None>
+    <None Include="..\..\premake5.lua">
+      <Filter>..</Filter>
+    </None>
+    <None Include="premake5.lua" />
+  </ItemGroup>
+</Project>
