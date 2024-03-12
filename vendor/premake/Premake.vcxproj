@@ -57,7 +57,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="..\..\LowLevelGameplay\premake5.lua" />
-    <None Include="..\..\LowLevelGameplay\vendor\Box2D\premake5.lua" />
     <None Include="..\..\premake5.lua" />
     <None Include="premake5.lua" />
   </ItemGroup>

@@ -33,7 +33,7 @@ project "LowLevelGameplay"
 		"winmm",
 		"gdi32",
 		"flac",
-		"vorbisec",
+		"vorbisenc",
 		"vorbisfile",
 		"vorbis",
 		"ogg",
@@ -56,7 +56,7 @@ project "LowLevelGameplay"
 			"sfml-network-s-d"
 		}
 	
-	filter "configuration:Release"
+	filter "configurations:Release"
 		defines { "NDEBUG"}
 		optimize "On"
 		
