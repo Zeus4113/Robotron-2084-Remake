@@ -38,7 +38,7 @@ namespace LLGP {
 		}
 		static float Dot(const Vector2<T>& lhs, const Vector2<T>& rhs)
 		{
-			return (float)(lhs.x * rhs.x + lhs.y * lhs.y);
+			return (float)(lhs.x * rhs.x + lhs.y * rhs.y);
 		}
 		static float Angle(Vector2<T>& lhs, Vector2<T>& rhs)
 		{

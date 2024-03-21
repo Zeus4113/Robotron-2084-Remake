@@ -11,11 +11,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="UUID.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arithmetic_concept.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="InputAction.h" />
+    <ClInclude Include="input_manager.h" />
+    <ClInclude Include="object.h" />
+    <ClInclude Include="Transform.h" />
+    <ClInclude Include="UUID.h" />
     <ClInclude Include="vector2.h" />
+    <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1F8CBF80-0B85-DED2-34B7-C357200FBEDE}</ProjectGuid>
