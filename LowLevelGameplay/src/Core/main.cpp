@@ -1,11 +1,16 @@
 #include <SFML/Graphics.hpp>
-#include "vector2.h"
 #include <chrono>
 #include <iostream>
 
+#include <Core/vector2.h>
+#include <Core/input_manager.h>
+#include <Core/GameObject.h>
+
+#include <App/Character.h>
+
 #define FIXEDFRAMERATE 0.02f
 
-//namespace LLGP {
+	std::vector<LLGP::Component*> g_componentList;
 
 	int main()
 	{
@@ -15,6 +20,18 @@
 		float deltaTime = 0.f;
 		float timeSincePhysicsStep = 0.f;
 
+		// Input & Player Refs
+		LLGP::GameObject* playerCharacter = new LLGP::GameObject();
+		g_componentList.push_back(playerCharacter->AddComponent<LLGP::Character>());
+
+		// Player Initialisation
+		playerCharacter->transform->position = LLGP::Vector3f(0, 0);
+		for (LLGP::Component* c : g_componentList) {
+			c->Awake();
+		}
+
+		//TODO: Move this garbage elsewhere heathen!!
+		
 		// Create Vectors
 		LLGP::Vector2<float> rectSize = LLGP::Vector2<float>::one * 100;
 		LLGP::Vector2<float> rectPos = LLGP::Vector2<float>(495, 270);
@@ -47,6 +64,8 @@
 				if (event.type == sf::Event::Closed)
 					window.close();
 			}
+
+			LLGP::InputManager::CheckInput();
 
 			// Physics Update
 			timeSincePhysicsStep += deltaTime;

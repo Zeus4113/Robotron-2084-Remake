@@ -3,17 +3,17 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <Core/vector2.h>
 
-#include "Component.h"
-#include "object.h"
-#include "Transform.h"
+#include <Core/Component.h>
+#include <Core/object.h>
+#include <Core/Transform.h>
 
 template<class T>
 concept isComponent = std::derived_from<T, LLGP::Component> == true;
 
 namespace LLGP
 {
-
 	class GameObject : public Object 
 	{
 	public:
@@ -32,6 +32,8 @@ namespace LLGP
 		template<class T> requires isComponent<T> T* GetComponent();
 		template<class T> requires isComponent<T> T* AddComponent();
 		template<class T> requires isComponent<T> bool RemoveComponent(T* comp);
+
+		void MoveObject(Vector2d movementVector) { transform->position += movementVector; }
 
 	private:
 		std::string m_Name;

@@ -1,5 +1,5 @@
 #pragma once
-#include "object.h"
+#include <Core/object.h>
 
 namespace LLGP 
 {
@@ -9,11 +9,13 @@ namespace LLGP
 	{
 	public:
 		Component(GameObject* owner) : _GameObject(owner) {}
-		virtual ~Component() {}
+		virtual ~Component() = 0;
 
 		GameObject* GetGameObject() { return _GameObject; }
 
-		virtual void OwnerActiveChange(bool newActive) {}  
+		virtual void OwnerActiveChange(bool newActive) {} 
+
+		virtual void Awake() {}
 
 	protected:
 		GameObject* _GameObject;

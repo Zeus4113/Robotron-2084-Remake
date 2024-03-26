@@ -1,5 +1,5 @@
 #pragma once
-#include "arithmetic_concept.h"
+#include <Core/arithmetic_concept.h>
 
 namespace LLGP
 {
@@ -13,10 +13,15 @@ namespace LLGP
 		Vector3() : x(0), y(0), z(0) {}
 		Vector3(const Vector3&) = default;
 		Vector3(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {}
+		Vector3(T _x, T _y) : x(_x), y(_y), z(0) {}
 
 		template<typename U> requires arithmatic<U>
 		explicit Vector3(const Vector3<U>& in) :
 			x(static_cast<T>(in.x)), y(static_cast<T>(in.y)), z(static_cast<T>(in.z)) {}
+
+		template<typename U> requires arithmatic<U>
+		explicit Vector3(const Vector2<U>& in) :
+			x(static_cast<T>(in.x)), y(static_cast<T>(in.y)), z(0) {}
 
 #pragma endregion
 
@@ -53,13 +58,19 @@ namespace LLGP
 	template<typename T> requires arithmatic<T>
 	Vector3<T>& operator+=(Vector3<T>& lhs, const Vector3<T> rhs)
 	{
-		lhs.x += rhs.x; lhs.y += rhs.y; lhs.z += rhs.z return lhs;
+		lhs.x += rhs.x; lhs.y += rhs.y; lhs.z += rhs.z; return lhs;
+	}
+
+	template<typename T, typename U> requires arithmatic<T> and arithmatic<U>
+	Vector3<T>& operator+=(Vector3<T>& lhs, const Vector2<U> rhs)
+	{
+		lhs.x += rhs.x; lhs.y += rhs.y; return lhs;
 	}
 
 	template<typename T> requires arithmatic<T>
 	Vector3<T>& operator-=(Vector3<T>& lhs, Vector3<T> rhs)
 	{
-		lhs.x -= rhs.x; lhs.y -= rhs.y; lhs.z -= rhs.z return lhs;
+		lhs.x -= rhs.x; lhs.y -= rhs.y; lhs.z -= rhs.z; return lhs;
 	}
 
 	template<typename T, typename U> requires arithmatic<T> and arithmatic<U>
@@ -79,7 +90,7 @@ namespace LLGP
 	template<typename T> requires arithmatic<T>
 	Vector3<T> operator-(const Vector3<T> v)
 	{
-		return Vector2<T>(-v.x, -v.y, -z.y);
+		return Vector3<T>(-v.x, -v.y, -v.z);
 	}
 
 	template<typename T> requires arithmatic<T>
@@ -163,4 +174,5 @@ namespace LLGP
 	typedef Vector3<int> Vector3i;
 	typedef Vector3<unsigned int> Vector3u;
 	typedef Vector3<double> Vector3d;
+	typedef Vector3<float> Vector3f;
 }

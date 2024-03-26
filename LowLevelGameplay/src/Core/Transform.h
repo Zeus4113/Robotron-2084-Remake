@@ -1,10 +1,8 @@
 #pragma once
-#include "Vector3.h"
+#include <Core/Vector3.h>
 
 namespace LLGP
 {
-	//template<typename T> requires arithmatic<T>
-
 	struct Transform {
 	public:
 		Vector3<float> position;
@@ -19,7 +17,7 @@ namespace LLGP
 
 		template<typename U> requires arithmatic<U>
 		explicit Transform(const Transform& in) :
-			position(static_cast<Vector3<T>>(in.position)), rotation(static_cast<Vector3<T>>(in.rotation)), scale(static_cast<Vector3<T>>(in.scale)) {}
+			position(static_cast<Vector3<U>>(in.position)), rotation(static_cast<Vector3<U>>(in.rotation)), scale(static_cast<Vector3<U>>(in.scale)) {}
 
 	};
 }

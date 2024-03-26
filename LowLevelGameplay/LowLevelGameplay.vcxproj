@@ -10,24 +10,6 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="UUID.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="arithmetic_concept.h" />
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="Event.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="InputAction.h" />
-    <ClInclude Include="input_manager.h" />
-    <ClInclude Include="object.h" />
-    <ClInclude Include="Transform.h" />
-    <ClInclude Include="UUID.h" />
-    <ClInclude Include="vector2.h" />
-    <ClInclude Include="Vector3.h" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1F8CBF80-0B85-DED2-34B7-C357200FBEDE}</ProjectGuid>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
@@ -117,6 +99,26 @@
       <AdditionalLibraryDirectories>vendor\SFML-2.6.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\App\Character.h" />
+    <ClInclude Include="src\Core\Component.h" />
+    <ClInclude Include="src\Core\Event.h" />
+    <ClInclude Include="src\Core\GameObject.h" />
+    <ClInclude Include="src\Core\Transform.h" />
+    <ClInclude Include="src\Core\UUID.h" />
+    <ClInclude Include="src\Core\Vector3.h" />
+    <ClInclude Include="src\Core\arithmetic_concept.h" />
+    <ClInclude Include="src\Core\input_manager.h" />
+    <ClInclude Include="src\Core\object.h" />
+    <ClInclude Include="src\Core\vector2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\App\Character.cpp" />
+    <ClCompile Include="src\Core\Component.cpp" />
+    <ClCompile Include="src\Core\GameObject.cpp" />
+    <ClCompile Include="src\Core\UUID.cpp" />
+    <ClCompile Include="src\Core\main.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,5 +1,5 @@
 #pragma once
-#include "arithmetic_concept.h"
+#include <Core/arithmetic_concept.h>
 #include <SFML/Graphics.hpp>
 
 namespace LLGP {
@@ -69,6 +69,12 @@ namespace LLGP {
 	}
 
 	template<typename T, typename U> requires arithmatic<T> and arithmatic<U>
+	Vector2<T>& operator-=(Vector2<T>& lhs, Vector2<U> rhs)
+	{
+		lhs.x -= rhs.x; lhs.y -= rhs.y; return lhs;
+	}
+
+	template<typename T, typename U> requires arithmatic<T> and arithmatic<U>
 	Vector2<T>& operator*=(Vector2<T>& v, const U a)
 	{
 		v.y *= a; v.x *= a; return v;
@@ -90,6 +96,12 @@ namespace LLGP {
 
 	template<typename T> requires arithmatic<T>
 	Vector2<T> operator-(const Vector2<T> lhs, const Vector2<T>& rhs)
+	{
+		return lhs -= rhs;
+	}
+
+	template<typename T, typename U> requires arithmatic<T> and arithmatic<U>
+	Vector2<T> operator-(const Vector2<T> lhs, const Vector2<U>& rhs)
 	{
 		return lhs -= rhs;
 	}
@@ -165,4 +177,5 @@ namespace LLGP {
 	typedef Vector2<int> Vector2i;
 	typedef Vector2<unsigned int> Vector2u;
 	typedef Vector2<double> Vector2d;
+	typedef Vector2<float> Vector2f;
 }
