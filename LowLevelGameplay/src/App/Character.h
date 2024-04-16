@@ -7,7 +7,7 @@ namespace LLGP
 	class Character : public Component
 	{
 	public:
-		Character() = default;
+		Character(GameObject* owner) : Component(owner) {}
 		~Character() = default;
 
 		void HandleMovement(Vector2f movementValue);

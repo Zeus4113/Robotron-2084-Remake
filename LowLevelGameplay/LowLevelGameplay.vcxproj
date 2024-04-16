@@ -101,7 +101,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\App\Character.h" />
+    <ClInclude Include="src\Core\Collider.h" />
     <ClInclude Include="src\Core\Component.h" />
+    <ClInclude Include="src\Core\component_concept.h" />
     <ClInclude Include="src\Core\Event.h" />
     <ClInclude Include="src\Core\GameObject.h" />
     <ClInclude Include="src\Core\Transform.h" />
@@ -114,8 +116,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App\Character.cpp" />
+    <ClCompile Include="src\Core\Collider.cpp" />
     <ClCompile Include="src\Core\Component.cpp" />
     <ClCompile Include="src\Core\GameObject.cpp" />
+    <ClCompile Include="src\Core\input_manager.cpp" />
     <ClCompile Include="src\Core\UUID.cpp" />
     <ClCompile Include="src\Core\main.cpp" />
   </ItemGroup>

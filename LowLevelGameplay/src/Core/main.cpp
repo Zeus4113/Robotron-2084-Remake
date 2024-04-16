@@ -5,6 +5,7 @@
 #include <Core/vector2.h>
 #include <Core/input_manager.h>
 #include <Core/GameObject.h>
+#include <Core/Collider.h>
 
 #include <App/Character.h>
 
@@ -15,6 +16,7 @@
 	int main()
 	{
 		// Initial setup
+
 		sf::RenderWindow window(sf::VideoMode(990, 540), "SFML works!");
 		std::chrono::steady_clock::time_point lastTime = std::chrono::steady_clock::now();
 		float deltaTime = 0.f;
@@ -23,9 +25,10 @@
 		// Input & Player Refs
 		LLGP::GameObject* playerCharacter = new LLGP::GameObject();
 		g_componentList.push_back(playerCharacter->AddComponent<LLGP::Character>());
+		//g_componentList.push_back(playerCharacter->AddComponent<LLGP::Collider>());
 
 		// Player Initialisation
-		playerCharacter->transform->position = LLGP::Vector3f(0, 0);
+		playerCharacter->transform->position = LLGP::Vector3f(window.getSize().x / 2, window.getSize().y / 2);
 		for (LLGP::Component* c : g_componentList) {
 			c->Awake();
 		}
@@ -33,21 +36,22 @@
 		//TODO: Move this garbage elsewhere heathen!!
 		
 		// Create Vectors
-		LLGP::Vector2<float> rectSize = LLGP::Vector2<float>::one * 100;
-		LLGP::Vector2<float> rectPos = LLGP::Vector2<float>(495, 270);
+		LLGP::Vector2f rectSize = LLGP::Vector2f::one * 100;
+		LLGP::Vector2f rectPos = LLGP::Vector2f(495, 270);
 
 		// Create Texture
-		sf::Texture rectTex; rectTex.loadFromFile("images/robotronsprites.png");
-		LLGP::Vector2i spritesInTex(8, 9);
-		LLGP::Vector2i rectTexSize(rectTex.getSize());
-		sf::IntRect rectTexUV(0, (rectTexSize.y / spritesInTex.y) * 5, rectTexSize.x / spritesInTex.x, rectTexSize.y / spritesInTex.y);
+		//sf::Texture rectTex; rectTex.loadFromFile("images/robotronsprites.png");
+		//LLGP::Vector2i spritesInTex(8, 9);
+		//LLGP::Vector2i rectTexSize(rectTex.getSize());
+		//sf::IntRect rectTexUV(0, (rectTexSize.y / spritesInTex.y) * 5, rectTexSize.x / spritesInTex.x, rectTexSize.y / spritesInTex.y);
 
 		// Create and set sprite data
-		sf::RectangleShape rectangle(rectSize);
-		rectangle.setTexture(&rectTex);
-		rectangle.setTextureRect(rectTexUV);
-		rectangle.setOrigin(rectSize / 2);
-		rectangle.setPosition(rectPos);
+		sf::RectangleShape playerSprite(rectSize);
+		playerSprite.setOrigin(rectSize / 2);
+		playerSprite.setPosition(playerCharacter->transform->position.x, playerCharacter->transform->position.y);
+
+		//rectangle.setTexture(&rectTex);
+		//rectangle.setTextureRect(rectTexUV);
 
 		// Update
 		while (window.isOpen())
@@ -71,14 +75,18 @@
 			timeSincePhysicsStep += deltaTime;
 			while (timeSincePhysicsStep > FIXEDFRAMERATE)
 			{
-				std::cout << "Time since last step:" << timeSincePhysicsStep << "\n";
+				//std::cout << "Time since last step:" << timeSincePhysicsStep << "\n";
 				//std::cout << "Current Time: " << deltaTime << "\n";
+
 				timeSincePhysicsStep -= FIXEDFRAMERATE;
+
 			}
+
+			playerSprite.setPosition(playerCharacter->transform->position.x, playerCharacter->transform->position.y);
 
 			// Render
 			window.clear();
-			window.draw(rectangle);
+			window.draw(playerSprite);
 			window.display();
 		}
 
