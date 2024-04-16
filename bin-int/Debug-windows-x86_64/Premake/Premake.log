@@ -1,4 +1,0 @@
-﻿  Regenerating project files with Premake5!
-  The system cannot find the path specified.
-C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(160,5): error MSB3073: The command ""C:\Users\s020301l\Documents\GitHub\Low-Level-Gameplay\vendor\premake\bin/premake5" vs2022 --file="C:\Users\s020301l\Documents\GitHub\Low-Level-Gameplay\premake5.lua"
-C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(160,5): error MSB3073: :VCEnd" exited with code 3.
