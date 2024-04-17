@@ -13,24 +13,8 @@ namespace LLGP
 		static Event<int> inputEvent;
 		static Event<Vector2f> onMovementPerformed;
 		static Event<Vector2f> onMovementCancelled;
+		static Event<Vector2f> onMovementStarted;
 
-		static void CheckInput() {
-
-			Vector2f movementVector = Vector2f(
-				sf::Keyboard::isKeyPressed(sf::Keyboard::Right) - sf::Keyboard::isKeyPressed(sf::Keyboard::Left), 
-				sf::Keyboard::isKeyPressed(sf::Keyboard::Up) - sf::Keyboard::isKeyPressed(sf::Keyboard::Down)
-			);
-
-			if (movementVector != movementVectorObserver) {
-				if (movementVector == Vector2f::zero) {
-					onMovementCancelled(movementVector);
-				}
-				else {
-					onMovementPerformed(movementVector);
-				}
-			}
-
-			movementVectorObserver = movementVector;
-		}
+		static void CheckInput();
 	};
 }

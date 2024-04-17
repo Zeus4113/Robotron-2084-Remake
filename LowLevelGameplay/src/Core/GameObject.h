@@ -50,7 +50,7 @@ namespace LLGP
 
 		template<class T> requires isComponent<T> bool RemoveComponent(T* comp) { return false; }
 
-		void MoveObject(Vector2d movementVector) { transform->position += movementVector; }
+		void MoveObject(Vector2f movementVector) { transform->position += movementVector; }
 		inline Transform* GetTransform() { return transform; }
 
 	private:

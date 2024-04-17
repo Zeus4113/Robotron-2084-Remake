@@ -1,4 +1,5 @@
 #include <Core/Collider.h>
+#include <iostream>
 
 namespace LLGP {
 
@@ -8,6 +9,7 @@ namespace LLGP {
 			_location->y < otherBox->_location->y + otherBox->_size.y && _location->y > otherBox->_location->y)
 		{
 			isColliding = true;
+			std::cout << "Collision Detected!" << std::endl;
 		}
 		else
 		{

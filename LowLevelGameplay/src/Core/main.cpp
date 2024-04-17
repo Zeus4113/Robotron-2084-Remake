@@ -6,6 +6,7 @@
 #include <Core/input_manager.h>
 #include <Core/GameObject.h>
 #include <Core/Collider.h>
+#include <Core/PhysicsManager.h>
 
 #include <App/Character.h>
 
@@ -22,10 +23,22 @@
 		float deltaTime = 0.f;
 		float timeSincePhysicsStep = 0.f;
 
+		LLGP::PhysicsManager* physicsManager = new LLGP::PhysicsManager();
+
 		// Input & Player Refs
 		LLGP::GameObject* playerCharacter = new LLGP::GameObject();
 		g_componentList.push_back(playerCharacter->AddComponent<LLGP::Character>());
-		//g_componentList.push_back(playerCharacter->AddComponent<LLGP::Collider>());
+		
+		// Push and Set the Collider Component Variables for Game Object
+		g_componentList.push_back(playerCharacter->AddComponent<LLGP::Collider>());
+		playerCharacter->GetComponent<LLGP::Collider>()->SetOwner(playerCharacter);
+		playerCharacter->GetComponent<LLGP::Collider>()->SetLocation(new LLGP::Vector2f(playerCharacter->GetTransform()->position.x, playerCharacter->GetTransform()->position.y));
+		playerCharacter->GetComponent<LLGP::Collider>()->SetSize(LLGP::Vector2f(10, 10));
+
+		physicsManager->RegisterCollider(playerCharacter->GetComponent<LLGP::Collider>());
+
+
+		// g_componentList.push_back(playerCharacter->AddComponent<LLGP::Collider>(playerCharacter, new LLGP::Vector2f(playerCharacter->GetTransform()->position.x, playerCharacter->GetTransform()->position.y)));
 
 		// Player Initialisation
 		playerCharacter->transform->position = LLGP::Vector3f(window.getSize().x / 2, window.getSize().y / 2);
@@ -78,6 +91,7 @@
 				//std::cout << "Time since last step:" << timeSincePhysicsStep << "\n";
 				//std::cout << "Current Time: " << deltaTime << "\n";
 
+				physicsManager->CheckCollisions();
 				timeSincePhysicsStep -= FIXEDFRAMERATE;
 
 			}

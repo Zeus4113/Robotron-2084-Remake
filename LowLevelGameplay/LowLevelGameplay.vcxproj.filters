@@ -58,6 +58,7 @@
       <Filter>Headers\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\component_concept.h" />
+    <ClInclude Include="src\Core\PhysicsManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App\Character.cpp">
@@ -79,5 +80,6 @@
       <Filter>Sources\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\input_manager.cpp" />
+    <ClCompile Include="src\Core\PhysicsManager.cpp" />
   </ItemGroup>
 </Project>

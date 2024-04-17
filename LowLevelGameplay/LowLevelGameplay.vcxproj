@@ -106,6 +106,7 @@
     <ClInclude Include="src\Core\component_concept.h" />
     <ClInclude Include="src\Core\Event.h" />
     <ClInclude Include="src\Core\GameObject.h" />
+    <ClInclude Include="src\Core\PhysicsManager.h" />
     <ClInclude Include="src\Core\Transform.h" />
     <ClInclude Include="src\Core\UUID.h" />
     <ClInclude Include="src\Core\Vector3.h" />
@@ -120,6 +121,7 @@
     <ClCompile Include="src\Core\Component.cpp" />
     <ClCompile Include="src\Core\GameObject.cpp" />
     <ClCompile Include="src\Core\input_manager.cpp" />
+    <ClCompile Include="src\Core\PhysicsManager.cpp" />
     <ClCompile Include="src\Core\UUID.cpp" />
     <ClCompile Include="src\Core\main.cpp" />
   </ItemGroup>
