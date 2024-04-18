@@ -7,11 +7,18 @@ namespace LLGP {
 	Event<Vector2f> InputManager::onMovementCancelled;
 	Event<Vector2f> InputManager::onMovementStarted;
 
+	Vector2f InputManager::shootingVectorObserver = Vector2f::zero;
+	Event<Vector2f> InputManager::onShootingPerformed;
+	Event<Vector2f> InputManager::onShootingCancelled;
+	Event<int> InputManager::onShoot;
+
 	void InputManager::CheckInput() {
+
+		// Movement Input Detection
 
 		Vector2f movementVector = Vector2f(
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Right) - sf::Keyboard::isKeyPressed(sf::Keyboard::Left),
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Up) - sf::Keyboard::isKeyPressed(sf::Keyboard::Down)
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Down) - sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
 		);
 
 		if (movementVector != movementVectorObserver) {
@@ -29,6 +36,30 @@ namespace LLGP {
 		}
 
 		movementVectorObserver = movementVector;
+
+		// Shooting Input Detection
+
+		Vector2f shootingVector = Vector2f(
+			sf::Keyboard::isKeyPressed(sf::Keyboard::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::A),
+			sf::Keyboard::isKeyPressed(sf::Keyboard::S) - sf::Keyboard::isKeyPressed(sf::Keyboard::W)
+		);
+
+		if (shootingVector != shootingVectorObserver) {
+
+			if (shootingVector == Vector2f::zero) {
+				onShootingCancelled(shootingVector);
+			}
+		}
+
+		if (shootingVector != Vector2f::zero) {
+			onShootingPerformed(shootingVector);
+		}
+
+		shootingVectorObserver = shootingVector;
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && shootingVector != Vector2f::zero) {
+			onShoot(0);
+		}
 	}
 
 }

@@ -6,12 +6,10 @@ namespace LLGP {
 
 	static class PhysicsManager {
 	public:
-		PhysicsManager() {}
-		~PhysicsManager() {}
 
-		void CheckCollisions();
-		void RegisterCollider(Collider* newCollider) { _Colliders.push_back(newCollider); }
-		void UnregisterCollider(Collider* oldCollider)
+		static void CheckCollisions();
+		static void RegisterCollider(Collider* newCollider) { _Colliders.push_back(newCollider); }
+		static void UnregisterCollider(Collider* oldCollider)
 		{	
 			for (int i = 0; i < _Colliders.size(); ++i)
 			{
@@ -25,7 +23,7 @@ namespace LLGP {
 
 	private:
 
-		std::vector<Collider*> _Colliders;
+		static std::vector<Collider*> _Colliders;
 	};
 
 }

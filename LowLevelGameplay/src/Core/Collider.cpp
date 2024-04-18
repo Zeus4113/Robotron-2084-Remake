@@ -1,20 +1,23 @@
 #include <Core/Collider.h>
 #include <iostream>
+#include <Core/GameObject.h>
+
 
 namespace LLGP {
 
-	void Collider::Collision(Collider* otherBox) {
+	bool Collider::Collision(Collider* otherBox) {
 
-		if (_location->x < otherBox->_location->x + otherBox->_size.x && _location->x > otherBox->_location->x ||
-			_location->y < otherBox->_location->y + otherBox->_size.y && _location->y > otherBox->_location->y)
-		{
-			isColliding = true;
-			std::cout << "Collision Detected!" << std::endl;
-		}
-		else
-		{
-			isColliding = false;
-		}
+		Vector2f pos1 = Vector2f(this->_GameObject->GetTransform()->position.x, this->_GameObject->GetTransform()->position.y);
+		Vector2f pos2 = Vector2f(otherBox->_GameObject->GetTransform()->position.x, otherBox->_GameObject->GetTransform()->position.y);
+
+		Vector2f aMin = pos1 - this->_size;
+		Vector2f aMax = pos1 + this->_size;
+		Vector2f bMin = pos2 - otherBox->GetSize();
+		Vector2f bMax = pos2 + otherBox->GetSize();
+
+		std::cout << aMax.x << " " << bMin.x << std::endl;
+
+		return aMax.x >= bMin.x && aMin.x <= bMax.x && aMax.y >= bMin.y && aMin.y <= bMax.y;
 
 	}
 

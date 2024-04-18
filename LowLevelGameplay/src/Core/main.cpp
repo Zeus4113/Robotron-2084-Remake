@@ -23,7 +23,9 @@
 		float deltaTime = 0.f;
 		float timeSincePhysicsStep = 0.f;
 
-		LLGP::PhysicsManager* physicsManager = new LLGP::PhysicsManager();
+		// Create Vectors
+		LLGP::Vector2f rectSize = LLGP::Vector2f::one * 25;
+		LLGP::Vector2f rectPos = LLGP::Vector2f(495, 270);
 
 		// Input & Player Refs
 		LLGP::GameObject* playerCharacter = new LLGP::GameObject();
@@ -31,26 +33,31 @@
 		
 		// Push and Set the Collider Component Variables for Game Object
 		g_componentList.push_back(playerCharacter->AddComponent<LLGP::Collider>());
-		playerCharacter->GetComponent<LLGP::Collider>()->SetOwner(playerCharacter);
-		playerCharacter->GetComponent<LLGP::Collider>()->SetLocation(new LLGP::Vector2f(playerCharacter->GetTransform()->position.x, playerCharacter->GetTransform()->position.y));
-		playerCharacter->GetComponent<LLGP::Collider>()->SetSize(LLGP::Vector2f(10, 10));
+		playerCharacter->GetComponent<LLGP::Collider>()->SetSize(rectSize /2.f);
 
-		physicsManager->RegisterCollider(playerCharacter->GetComponent<LLGP::Collider>());
+		// Create test object with collider
+		LLGP::GameObject* testObject = new LLGP::GameObject();
+		g_componentList.push_back(testObject->AddComponent<LLGP::Collider>());
+		testObject->GetComponent<LLGP::Collider>()->SetSize(rectSize / 2.f);
 
+		// Register Colliders
+		LLGP::PhysicsManager::RegisterCollider(playerCharacter->GetComponent<LLGP::Collider>());
+		LLGP::PhysicsManager::RegisterCollider(testObject->GetComponent<LLGP::Collider>());
 
-		// g_componentList.push_back(playerCharacter->AddComponent<LLGP::Collider>(playerCharacter, new LLGP::Vector2f(playerCharacter->GetTransform()->position.x, playerCharacter->GetTransform()->position.y)));
 
 		// Player Initialisation
-		playerCharacter->transform->position = LLGP::Vector3f(window.getSize().x / 2, window.getSize().y / 2);
+		playerCharacter->transform->position = LLGP::Vector3f(window.getSize().x / 3, window.getSize().y / 3);
+		for (LLGP::Component* c : g_componentList) {
+			c->Awake();
+		}
+
+		// Box Initialisation
+		testObject->transform->position = LLGP::Vector3f(window.getSize().x / 1.5, window.getSize().y / 1.5);
 		for (LLGP::Component* c : g_componentList) {
 			c->Awake();
 		}
 
 		//TODO: Move this garbage elsewhere heathen!!
-		
-		// Create Vectors
-		LLGP::Vector2f rectSize = LLGP::Vector2f::one * 100;
-		LLGP::Vector2f rectPos = LLGP::Vector2f(495, 270);
 
 		// Create Texture
 		//sf::Texture rectTex; rectTex.loadFromFile("images/robotronsprites.png");
@@ -62,6 +69,10 @@
 		sf::RectangleShape playerSprite(rectSize);
 		playerSprite.setOrigin(rectSize / 2);
 		playerSprite.setPosition(playerCharacter->transform->position.x, playerCharacter->transform->position.y);
+
+		sf::RectangleShape testSprite(rectSize);
+		testSprite.setOrigin(rectSize / 2);
+		testSprite.setPosition(testObject->GetTransform()->position.x, testObject->GetTransform()->position.y);
 
 		//rectangle.setTexture(&rectTex);
 		//rectangle.setTextureRect(rectTexUV);
@@ -91,7 +102,7 @@
 				//std::cout << "Time since last step:" << timeSincePhysicsStep << "\n";
 				//std::cout << "Current Time: " << deltaTime << "\n";
 
-				physicsManager->CheckCollisions();
+				LLGP::PhysicsManager::CheckCollisions();
 				timeSincePhysicsStep -= FIXEDFRAMERATE;
 
 			}
@@ -101,6 +112,7 @@
 			// Render
 			window.clear();
 			window.draw(playerSprite);
+			window.draw(testSprite);
 			window.display();
 		}
 

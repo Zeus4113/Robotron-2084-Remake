@@ -30,14 +30,14 @@ namespace LLGP
 			T* returnComp = nullptr;
 			for (int i = 0; i < m_Components.size(); i++)
 			{
-				returnComp = static_cast<T*>(m_Components[i].get());
+				returnComp = dynamic_cast<T*>(m_Components[i].get());
 				if (returnComp != nullptr)
 				{
-					break;
+					return returnComp;
 				}
 			}
-
-			return returnComp;
+			return nullptr;
+			
 		}
 
 		template<class T> requires isComponent<T>
