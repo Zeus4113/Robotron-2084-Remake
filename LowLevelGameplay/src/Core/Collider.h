@@ -4,19 +4,18 @@
 
 namespace LLGP {
 
-	class Collider :Component {
+	class Collider : public Component {
 
 	public:
 		Collider() = default;
 		Collider(GameObject* owner, Vector2f* location, Vector2f size) : Component(owner), _size(size), _location(location) {}
-		virtual ~Collider() = 0;
+		~Collider() = default;
 
-		void Collision(Collider* otherBox);
+		bool IsColliding(Collider* otherBox);
 
 	protected:
 		Vector2f _size;
 		Vector2f* _location;
-		bool isColliding;
 	};
 }
 

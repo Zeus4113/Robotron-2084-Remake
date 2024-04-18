@@ -48,6 +48,9 @@
     <ClInclude Include="src\Core\arithmetic_concept.h">
       <Filter>Headers\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\component_concept.h">
+      <Filter>Headers\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Core\input_manager.h">
       <Filter>Headers\Core</Filter>
     </ClInclude>
@@ -57,7 +60,6 @@
     <ClInclude Include="src\Core\vector2.h">
       <Filter>Headers\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\component_concept.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App\Character.cpp">
@@ -75,9 +77,11 @@
     <ClCompile Include="src\Core\UUID.cpp">
       <Filter>Sources\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\input_manager.cpp">
+      <Filter>Sources\Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\Core\main.cpp">
       <Filter>Sources\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\input_manager.cpp" />
   </ItemGroup>
 </Project>

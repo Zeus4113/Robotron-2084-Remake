@@ -29,6 +29,7 @@
 
 		// Player Initialisation
 		playerCharacter->transform->position = LLGP::Vector3f(window.getSize().x / 2, window.getSize().y / 2);
+
 		for (LLGP::Component* c : g_componentList) {
 			c->Awake();
 		}
@@ -77,6 +78,8 @@
 			{
 				//std::cout << "Time since last step:" << timeSincePhysicsStep << "\n";
 				//std::cout << "Current Time: " << deltaTime << "\n";
+
+				//playerCharacter->GetComponent<LLGP::Character>()->Move();
 
 				timeSincePhysicsStep -= FIXEDFRAMERATE;
 

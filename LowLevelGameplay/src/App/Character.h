@@ -1,6 +1,7 @@
 #pragma once
 #include<Core/Component.h>
 #include<Core/vector2.h>
+#include<Core/Transform.h>
 
 namespace LLGP 
 {
@@ -10,7 +11,10 @@ namespace LLGP
 		Character(GameObject* owner) : Component(owner) {}
 		~Character() = default;
 
-		void HandleMovement(Vector2f movementValue);
+		void ReadInput(Vector2f movementValue);
 		void Awake() override;
+	private:
+		Vector2f movementVector = Vector2f(0,0);
+		float movementSpeed = 0.25;
 	};
 }
