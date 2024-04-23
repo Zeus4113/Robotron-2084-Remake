@@ -4,14 +4,14 @@
 
 namespace LLGP {
 
+
 	class Collider : public Component {
 
 	public:
-		Collider(GameObject* owner) : Component(owner) {}
-		~Collider() { }
+		Collider(GameObject* owner) : Component(owner) { PhysicsManager::RegisterCollider(this); }
+		~Collider() { PhysicsManager::UnregisterCollider(this); }
 
 		bool Collision(Collider* otherBox);
-
 		void SetSize(Vector2f size) { this->_size = size; }
 		Vector2f GetSize() { return _size; }
 

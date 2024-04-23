@@ -107,6 +107,8 @@
     <ClInclude Include="src\Core\Event.h" />
     <ClInclude Include="src\Core\GameObject.h" />
     <ClInclude Include="src\Core\PhysicsManager.h" />
+    <ClInclude Include="src\Core\Rigidbody.h" />
+    <ClInclude Include="src\Core\Sprite.h" />
     <ClInclude Include="src\Core\Transform.h" />
     <ClInclude Include="src\Core\UUID.h" />
     <ClInclude Include="src\Core\Vector3.h" />

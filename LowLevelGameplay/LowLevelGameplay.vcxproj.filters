@@ -59,6 +59,8 @@
     </ClInclude>
     <ClInclude Include="src\Core\component_concept.h" />
     <ClInclude Include="src\Core\PhysicsManager.h" />
+    <ClInclude Include="src\Core\Rigidbody.h" />
+    <ClInclude Include="src\Core\Sprite.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App\Character.cpp">
