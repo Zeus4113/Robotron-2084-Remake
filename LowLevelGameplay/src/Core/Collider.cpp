@@ -1,9 +1,18 @@
 #include <Core/Collider.h>
-#include <iostream>
 #include <Core/GameObject.h>
-
+#include <Core/PhysicsManager.h>
 
 namespace LLGP {
+		
+	Collider::Collider(GameObject* owner) : Component(owner) 
+	{ 
+		PhysicsManager::RegisterCollider(this); 
+	}
+
+	Collider::~Collider() 
+	{ 
+		PhysicsManager::UnregisterCollider(this); 
+	}
 
 	bool Collider::Collision(Collider* otherBox) {
 
@@ -14,8 +23,6 @@ namespace LLGP {
 		Vector2f aMax = pos1 + this->_size;
 		Vector2f bMin = pos2 - otherBox->GetSize();
 		Vector2f bMax = pos2 + otherBox->GetSize();
-
-		std::cout << aMax.x << " " << bMin.x << std::endl;
 
 		return aMax.x >= bMin.x && aMin.x <= bMax.x && aMax.y >= bMin.y && aMin.y <= bMax.y;
 

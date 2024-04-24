@@ -1,10 +1,46 @@
 #include "PhysicsManager.h"
+#include <Core/Collider.h>
+#include <Core/Rigidbody.h>
 #include <iostream>
 
 namespace LLGP {
 
 	std::vector<Collider*> PhysicsManager::_Colliders;
 	std::vector<Rigidbody*> PhysicsManager::_Rigidbodies;
+
+	void PhysicsManager::RegisterCollider(LLGP::Collider* newCollider) 
+	{ 
+		_Colliders.push_back(newCollider); 
+	}
+
+	void PhysicsManager::UnregisterCollider(Collider* oldCollider)
+	{
+		for (int i = 0; i < _Colliders.size(); ++i)
+		{
+			if (_Colliders[i] == oldCollider)
+			{
+				_Colliders[i] = nullptr;
+				delete _Colliders[i];
+			}
+		}
+	}
+
+	void PhysicsManager::RegisterRigidbody(Rigidbody* newRigidbody) 
+	{ 
+		_Rigidbodies.push_back(newRigidbody); _Colliders.push_back(newRigidbody->GetCollider()); 
+	}
+
+	void PhysicsManager::UnregisterRigidbody(Rigidbody* oldRigidbody)
+	{
+		for (int i = 0; i < _Rigidbodies.size(); ++i)
+		{
+			if (_Rigidbodies[i] == oldRigidbody)
+			{
+				_Rigidbodies[i] = nullptr;
+				delete _Rigidbodies[i];
+			}
+		}
+	}
 
 	void PhysicsManager::CheckCollisions() {
 
@@ -23,15 +59,6 @@ namespace LLGP {
 				}
 			}
 		}
-
-		//for (int i = 0; i < _Colliders.size() - 1; i++) 
-		//{
-		//	for (int j = i+1; j < _Colliders.size(); j++) 
-		//	{
-		//		std::cout << _Colliders[i]->Collision(_Colliders[j]) << std::endl;
-		//	}
-		//}
-
 	}
 
 	void PhysicsManager::UpdatePhysics() {

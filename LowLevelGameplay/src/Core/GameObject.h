@@ -26,7 +26,8 @@ namespace LLGP
 		inline void SetTag(std::string newTag) { m_Tag = newTag; }
 		inline bool CompareTag(std::string comp) { return m_Tag == comp; }
 
-		template<class T> requires isComponent<T> T* GetComponent() {
+		template<class T> requires isComponent<T> 
+		T* GetComponent() {
 			T* returnComp = nullptr;
 			for (int i = 0; i < m_Components.size(); i++)
 			{

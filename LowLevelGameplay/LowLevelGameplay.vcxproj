@@ -118,6 +118,7 @@
     <ClInclude Include="src\Core\vector2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="src\App\Character.cpp" />
     <ClCompile Include="src\Core\Collider.cpp" />
     <ClCompile Include="src\Core\Component.cpp" />
