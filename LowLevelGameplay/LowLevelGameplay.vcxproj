@@ -100,6 +100,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\App\Bullet.h" />
+    <ClInclude Include="src\Core\RenderingManager.h" />
+    <ClInclude Include="src\Core\EntityManager.h" />
     <ClInclude Include="src\App\Character.h" />
     <ClInclude Include="src\Core\Collider.h" />
     <ClInclude Include="src\Core\Component.h" />
@@ -118,6 +121,9 @@
     <ClInclude Include="src\Core\vector2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\App\Bullet.cpp" />
+    <ClCompile Include="src\Core\RenderingManager.cpp" />
+    <ClCompile Include="src\Core\EntityManager.cpp" />
     <ClCompile Include="src\Core\Rigidbody.cpp" />
     <ClCompile Include="src\App\Character.cpp" />
     <ClCompile Include="src\Core\Collider.cpp" />
@@ -125,6 +131,7 @@
     <ClCompile Include="src\Core\GameObject.cpp" />
     <ClCompile Include="src\Core\input_manager.cpp" />
     <ClCompile Include="src\Core\PhysicsManager.cpp" />
+    <ClCompile Include="src\Core\Sprite.cpp" />
     <ClCompile Include="src\Core\UUID.cpp" />
     <ClCompile Include="src\Core\main.cpp" />
   </ItemGroup>

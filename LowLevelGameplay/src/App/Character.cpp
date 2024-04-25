@@ -2,6 +2,7 @@
 #include <Core/input_manager.h>
 #include <Core/GameObject.h>
 #include <Core/Rigidbody.h>
+#include <App/Bullet.h>
 
 namespace LLGP {
 
@@ -15,10 +16,15 @@ namespace LLGP {
 	void Character::HandleShooting(Vector2f shootingValue) {
 
 		//std::cout << "Shooting Vector: " << shootingValue.x << " " << shootingValue.y << std::endl;
+		_AimVector = shootingValue;
 	}
 
 	void Character::OnShoot(int input) {
-		//std::cout << "Shot fired!" << std::endl;
+		
+		Bullet* newBullet = new Bullet(_AimVector, 10.f);
+		newBullet->transform->position = (this->GetGameObject()->transform->position + Vector3f(_AimVector.x * 15, _AimVector.y * 15));
+		newBullet->Awake();
+		std::cout << "Hit" << std::endl;
 	}
 
 	void Character::Awake() 

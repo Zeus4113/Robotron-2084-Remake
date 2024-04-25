@@ -3,7 +3,7 @@
 #include <Core/PhysicsManager.h>
 
 namespace LLGP {
-		
+
 	Collider::Collider(GameObject* owner) : Component(owner) 
 	{ 
 		PhysicsManager::RegisterCollider(this); 
@@ -24,7 +24,12 @@ namespace LLGP {
 		Vector2f bMin = pos2 - otherBox->GetSize();
 		Vector2f bMax = pos2 + otherBox->GetSize();
 
-		return aMax.x >= bMin.x && aMin.x <= bMax.x && aMax.y >= bMin.y && aMin.y <= bMax.y;
+		if (aMax.x >= bMin.x && aMin.x <= bMax.x && aMax.y >= bMin.y && aMin.y <= bMax.y) {
+			onCollision(otherBox);
+			return true;
+		}
+
+		return false;
 
 	}
 

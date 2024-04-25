@@ -20,6 +20,8 @@ namespace LLGP
 		static Event<Vector2f> onShootingCancelled;
 		static Event<int> onShoot;
 
+		static bool isPressed;
+
 		static void CheckInput();
 	};
 }

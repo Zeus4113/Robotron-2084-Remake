@@ -61,6 +61,9 @@
     <ClInclude Include="src\Core\PhysicsManager.h" />
     <ClInclude Include="src\Core\Rigidbody.h" />
     <ClInclude Include="src\Core\Sprite.h" />
+    <ClInclude Include="src\Core\EntityManager.h" />
+    <ClInclude Include="src\Core\RenderingManager.h" />
+    <ClInclude Include="src\App\Bullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App\Character.cpp">
@@ -84,5 +87,9 @@
     <ClCompile Include="src\Core\input_manager.cpp" />
     <ClCompile Include="src\Core\PhysicsManager.cpp" />
     <ClCompile Include="src\Core\Rigidbody.cpp" />
+    <ClCompile Include="src\Core\EntityManager.cpp" />
+    <ClCompile Include="src\Core\RenderingManager.cpp" />
+    <ClCompile Include="src\Core\Sprite.cpp" />
+    <ClCompile Include="src\App\Bullet.cpp" />
   </ItemGroup>
 </Project>

@@ -15,7 +15,10 @@ namespace LLGP
 	{
 	public:
 		GameObject();
-		GameObject(const GameObject&) = default;
+		~GameObject();
+
+		//GameObject(const GameObject&) = default;
+
 		Transform* transform;
 		inline void SetName(std::string newName) { m_Name = newName; }
 		inline std::string GetName() { return m_Name; }
@@ -25,6 +28,8 @@ namespace LLGP
 
 		inline void SetTag(std::string newTag) { m_Tag = newTag; }
 		inline bool CompareTag(std::string comp) { return m_Tag == comp; }
+
+		virtual void Awake();
 
 		template<class T> requires isComponent<T>
 		T* AddComponent()
@@ -57,6 +62,8 @@ namespace LLGP
 		std::string m_Name;
 		bool m_Active;
 		std::string m_Tag;
+
+	protected:
 		std::vector<std::unique_ptr<Component>> m_Components;
 
 	};

@@ -72,6 +72,8 @@ namespace LLGP {
 
 	void PhysicsManager::ResolveCollision(Collider* collider, Rigidbody* rigidbody) {
 
+		if (collider == nullptr || rigidbody == nullptr) return;
+
 		if (collider->GetGameObject()->GetComponent<Rigidbody>()) {
 			Rigidbody* rigidbody2 = collider->GetGameObject()->GetComponent<Rigidbody>();
 

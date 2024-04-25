@@ -12,6 +12,8 @@ namespace LLGP {
 	Event<Vector2f> InputManager::onShootingCancelled;
 	Event<int> InputManager::onShoot;
 
+	bool InputManager::isPressed;
+
 	void InputManager::CheckInput() {
 
 		// Movement Input Detection
@@ -57,8 +59,17 @@ namespace LLGP {
 
 		shootingVectorObserver = shootingVector;
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && shootingVector != Vector2f::zero) {
-			onShoot(0);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+
+			if (shootingVector != Vector2f::zero && !isPressed) {
+				onShoot(0);
+			}
+
+			isPressed = true;
+		}
+
+		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			isPressed = false;
 		}
 	}
 

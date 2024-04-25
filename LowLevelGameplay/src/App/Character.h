@@ -16,5 +16,6 @@ namespace LLGP
 		void Awake() override;
 	private:
 		float _MovementSpeed = 0.025f;
+		Vector2f _AimVector;
 	};
 }

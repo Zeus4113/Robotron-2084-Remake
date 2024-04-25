@@ -1,6 +1,7 @@
 #pragma once
 #include <Core/Component.h>
 #include <Core/vector2.h>
+#include <Core/Event.h>
 
 namespace LLGP {
 
@@ -14,6 +15,8 @@ namespace LLGP {
 		bool Collision(Collider* otherBox);
 		void SetSize(Vector2f size) { this->_size = size; }
 		Vector2f GetSize() { return _size; }
+
+		Event<Collider*> onCollision;
 
 	private:
 
