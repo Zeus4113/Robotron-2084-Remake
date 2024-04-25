@@ -7,7 +7,8 @@ namespace LLGP {
 	Rigidbody::Rigidbody(GameObject* owner) : Component(owner)
 	{ 
 		_Collider = new Collider(owner);
-		_Mass = 0.f; 
+		_Mass = 0.1f; 
+		_Drag = 0.025f;
 		_Velocity = Vector2f::zero; 
 
 		PhysicsManager::RegisterRigidbody(this); 
@@ -16,6 +17,7 @@ namespace LLGP {
 	Rigidbody::~Rigidbody() 
 	{ 
 		PhysicsManager::UnregisterRigidbody(this); 
+		delete _Collider;
 	}
 
 	void Rigidbody::SetSize(Vector2f newSize) 

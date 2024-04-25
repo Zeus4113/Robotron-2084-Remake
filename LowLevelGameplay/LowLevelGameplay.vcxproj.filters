@@ -83,6 +83,6 @@
     </ClCompile>
     <ClCompile Include="src\Core\input_manager.cpp" />
     <ClCompile Include="src\Core\PhysicsManager.cpp" />
-    <ClCompile Include="Rigidbody.cpp" />
+    <ClCompile Include="src\Core\Rigidbody.cpp" />
   </ItemGroup>
 </Project>

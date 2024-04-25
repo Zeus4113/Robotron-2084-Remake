@@ -52,7 +52,6 @@ namespace LLGP {
 				if (_Rigidbodies[i]->GetGameObject() != _Colliders[j]->GetGameObject()) {
 
 					if (_Rigidbodies[i]->GetCollider()->Collision(_Colliders[j])) {
-						std::cout << "Hit 2" << std::endl;
 
 						ResolveCollision(_Colliders[j], _Rigidbodies[i]);
 					}
@@ -66,6 +65,8 @@ namespace LLGP {
 		for (Rigidbody* r : _Rigidbodies) {
 			GameObject* obj = r->GetGameObject();
 			obj->MoveObject(r->GetVelocity());
+
+			r->DampenVelocity();
 		}
 	}
 
@@ -78,15 +79,18 @@ namespace LLGP {
 			float mass2 = rigidbody2->GetMass();
 			float totalMass = mass1 + mass2;
 
-			Vector2f ratioVelocty = (rigidbody->GetVelocity() + rigidbody->GetVelocity()) / totalMass;
+			Vector2f ratioVelocty = (rigidbody->GetVelocity() + rigidbody2->GetVelocity()) / totalMass;
 			Vector2f velocity1 = ratioVelocty * mass1;
 			Vector2f velocity2 = ratioVelocty * mass2;
 
 			rigidbody->SetVelocity(-velocity1);
-			rigidbody->SetVelocity(-velocity2);
+			rigidbody2->SetVelocity(velocity2);
 
 			rigidbody->GetGameObject()->MoveObject(rigidbody->GetVelocity());
 			rigidbody2->GetGameObject()->MoveObject(rigidbody2->GetVelocity());
+
+			//std::cout << rigidbody->GetVelocity().x << " " << rigidbody->GetVelocity().y << std::endl;
+			//std::cout << rigidbody2->GetVelocity().x << " " << rigidbody2->GetVelocity().y << std::endl;
 		}
 		else 
 		{

@@ -7,6 +7,7 @@
 #include <Core/GameObject.h>
 #include <Core/Collider.h>
 #include <Core/Sprite.h>
+#include <Core/Rigidbody.h>
 #include <Core/Component.h>
 #include <App/Character.h>
 #include <Core/PhysicsManager.h>
@@ -37,7 +38,7 @@
 		
 		// Add and Set Collider Component (Player)
 		g_componentList.push_back(playerCharacter->AddComponent<LLGP::Rigidbody>());
-		playerCharacter->GetComponent<LLGP::Rigidbody>()->SetSize(rectSize /2.f);
+		playerCharacter->GetComponent<LLGP::Rigidbody>()->SetSize(rectSize / 2.f);
 		playerCharacter->GetComponent<LLGP::Rigidbody>()->SetMass(1.f);
 
 		// Add and Set Sprite Component (Player)
@@ -97,13 +98,6 @@
 		g_componentList.push_back(RightBorder->AddComponent<LLGP::Sprite>());
 		RightBorder->GetComponent<LLGP::Sprite>()->SetSize(LLGP::Vector2f(10, 1000));
 
-		// Register Colliders
-		LLGP::PhysicsManager::RegisterRigidbody(playerCharacter->GetComponent<LLGP::Rigidbody>());
-		LLGP::PhysicsManager::RegisterCollider(bottomBorder->GetComponent<LLGP::Collider>());
-		LLGP::PhysicsManager::RegisterCollider(topBorder->GetComponent<LLGP::Collider>());
-		LLGP::PhysicsManager::RegisterCollider(leftBorder->GetComponent<LLGP::Collider>());
-		LLGP::PhysicsManager::RegisterCollider(RightBorder->GetComponent<LLGP::Collider>());
-
 		// Awake
 		for (LLGP::Component* c : g_componentList) {
 			c->Awake();
@@ -112,6 +106,7 @@
 		// Update
 		while (window.isOpen())
 		{
+
 			// Update Time
 			std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
 			deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(now - lastTime).count() / 1000000.f;
