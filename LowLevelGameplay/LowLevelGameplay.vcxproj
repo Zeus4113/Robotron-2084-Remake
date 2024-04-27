@@ -100,7 +100,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\App\Citizen.h" />
+    <ClInclude Include="src\App\Enemy.h" />
+    <ClInclude Include="src\Core\ObjectPool.h" />
     <ClInclude Include="src\App\Bullet.h" />
+    <ClInclude Include="src\Core\ObjectTypes.h" />
     <ClInclude Include="src\Core\RenderingManager.h" />
     <ClInclude Include="src\Core\EntityManager.h" />
     <ClInclude Include="src\App\Character.h" />
@@ -119,8 +123,12 @@
     <ClInclude Include="src\Core\input_manager.h" />
     <ClInclude Include="src\Core\object.h" />
     <ClInclude Include="src\Core\vector2.h" />
+    <ClInclude Include="src\App\Trap.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\App\Citizen.cpp" />
+    <ClCompile Include="src\App\Enemy.cpp" />
+    <ClCompile Include="src\Core\ObjectPool.cpp" />
     <ClCompile Include="src\App\Bullet.cpp" />
     <ClCompile Include="src\Core\RenderingManager.cpp" />
     <ClCompile Include="src\Core\EntityManager.cpp" />
@@ -134,6 +142,7 @@
     <ClCompile Include="src\Core\Sprite.cpp" />
     <ClCompile Include="src\Core\UUID.cpp" />
     <ClCompile Include="src\Core\main.cpp" />
+    <ClCompile Include="src\App\Trap.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,6 +8,7 @@
 #include <Core/component_concept.h>
 #include <Core/object.h>
 #include <Core/Transform.h>
+#include <Core/ObjectTypes.h>
 
 namespace LLGP
 {
@@ -28,6 +29,9 @@ namespace LLGP
 
 		inline void SetTag(std::string newTag) { m_Tag = newTag; }
 		inline bool CompareTag(std::string comp) { return m_Tag == comp; }
+
+		inline void SetType(ObjectTypes newType) { m_Type = newType; }
+		inline bool CompareType(ObjectTypes comp) { return m_Type == comp; }
 
 		virtual void Awake();
 
@@ -62,6 +66,8 @@ namespace LLGP
 		std::string m_Name;
 		bool m_Active;
 		std::string m_Tag;
+		ObjectTypes m_Type;
+		
 
 	protected:
 		std::vector<std::unique_ptr<Component>> m_Components;

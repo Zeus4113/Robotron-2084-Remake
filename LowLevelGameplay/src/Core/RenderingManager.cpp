@@ -1,5 +1,6 @@
 #include <Core/RenderingManager.h>
 #include <Core/Sprite.h>
+#include <Core/GameObject.h>
 
 namespace LLGP 
 {
@@ -32,11 +33,14 @@ namespace LLGP
 	{
 		_Window->clear();
 
-		for (Sprite* s : _Sprites) {
-			s->UpdateRender();
-			_Window->draw(s->GetShape());
+		for (Sprite* s : _Sprites) 
+		{
+			if (s->GetGameObject()->GetActive()) 
+			{
+				s->UpdateRender();
+				_Window->draw(s->GetShape());
+			}
 		}
-
 		_Window->display();
 	}
 }

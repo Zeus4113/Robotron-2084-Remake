@@ -14,6 +14,7 @@
 #include <Core/EntityManager.h>
 #include <Core/RenderingManager.h>
 #include <App/Bullet.h>
+#include <Core/ObjectPool.h>
 
 #define FIXEDFRAMERATE 0.02f
 #define RECTSIZE LLGP::Vector2f::one * 25
@@ -28,27 +29,17 @@
 		float deltaTime = 0.f;
 		float timeSincePhysicsStep = 0.f;
 
+		LLGP::ObjectPool::AddObject(LLGP::ObjectTypes::Player, 1);
+		LLGP::ObjectPool::AddObject(LLGP::ObjectTypes::Bullet, 10);
+
+		// Awake
+		LLGP::EntityManager::Awake();
+
 		// Create GameObject (Player)
-		LLGP::GameObject* playerCharacter = new LLGP::GameObject();
-		playerCharacter->transform->position = LLGP::Vector3f(
+		LLGP::GameObject* playerCharacter = LLGP::ObjectPool::GetObject(LLGP::ObjectTypes::Player, LLGP::Vector2f(
 			LLGP::RenderingManager::GetWindow()->getSize().x / 3,
 			LLGP::RenderingManager::GetWindow()->getSize().y / 3
-		);
-
-		// Add Character Component (Player)
-		playerCharacter->AddComponent<LLGP::Character>();
-		
-		// Add and Set Collider Component (Player)
-		playerCharacter->AddComponent<LLGP::Rigidbody>();
-		playerCharacter->GetComponent<LLGP::Rigidbody>()->SetSize(RECTSIZE / 2.f);
-		playerCharacter->GetComponent<LLGP::Rigidbody>()->SetMass(1.f);
-
-		// Add and Set Sprite Component (Player)
-		playerCharacter->AddComponent<LLGP::Sprite>();
-		playerCharacter->GetComponent<LLGP::Sprite>()->SetSize(RECTSIZE);
-
-		// Create bullet object
-		//LLGP::Bullet* bullet = new LLGP::Bullet();
+		));
 
 		// Create Character
 		LLGP::GameObject* enemyCharacter = new LLGP::GameObject();
@@ -117,9 +108,6 @@
 
 		RightBorder->AddComponent<LLGP::Sprite>();
 		RightBorder->GetComponent<LLGP::Sprite>()->SetSize(LLGP::Vector2f(10, 1000));
-
-		// Awake
-		LLGP::EntityManager::Awake();
 
 		// Update
 		while (LLGP::RenderingManager::GetWindow()->isOpen())

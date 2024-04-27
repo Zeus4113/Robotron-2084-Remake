@@ -1,17 +1,18 @@
 #pragma once
-#include <Core/GameObject.h>
+#include <Core/Component.h>
+#include <Core/vector2.h>
 
 namespace LLGP 
 {
 	class Collider;
 
-	class Bullet : public GameObject
+	class Bullet : public Component
 	{
 	public:
-		Bullet(Vector2f direction, float force) : _Force(force), _Direction(direction){}
-		~Bullet() {}
+		Bullet(GameObject* owner);
+		~Bullet() = default;
 		 
-		void Awake() override;
+		void Init(Vector2f direction, float force);
 		void Destroy(Collider* col);
 
 	private:

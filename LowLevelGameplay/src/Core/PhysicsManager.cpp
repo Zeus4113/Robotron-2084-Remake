@@ -46,14 +46,19 @@ namespace LLGP {
 
 		for (int i = 0; i < _Rigidbodies.size(); i++)
 		{
-			for (int j = 0; j < _Colliders.size(); j++)
+			if (_Rigidbodies[i]->GetGameObject()->GetActive()) 
 			{
+				for (int j = 0; j < _Colliders.size(); j++)
+				{
+					if (_Colliders[i]->GetGameObject()->GetActive())
+					{
+						if (_Rigidbodies[i]->GetGameObject() != _Colliders[j]->GetGameObject()) {
 
-				if (_Rigidbodies[i]->GetGameObject() != _Colliders[j]->GetGameObject()) {
+							if (_Rigidbodies[i]->GetCollider()->Collision(_Colliders[j])) {
 
-					if (_Rigidbodies[i]->GetCollider()->Collision(_Colliders[j])) {
-
-						ResolveCollision(_Colliders[j], _Rigidbodies[i]);
+								ResolveCollision(_Colliders[j], _Rigidbodies[i]);
+							}
+						}
 					}
 				}
 			}
@@ -62,11 +67,14 @@ namespace LLGP {
 
 	void PhysicsManager::UpdatePhysics() {
 
-		for (Rigidbody* r : _Rigidbodies) {
-			GameObject* obj = r->GetGameObject();
-			obj->MoveObject(r->GetVelocity());
-
-			r->DampenVelocity();
+		for (Rigidbody* r : _Rigidbodies) 
+		{
+			if (r->GetGameObject()->GetActive()) 
+			{
+				GameObject* obj = r->GetGameObject();
+				obj->MoveObject(r->GetVelocity());
+				r->DampenVelocity();
+			}
 		}
 	}
 

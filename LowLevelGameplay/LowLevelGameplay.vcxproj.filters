@@ -64,6 +64,11 @@
     <ClInclude Include="src\Core\EntityManager.h" />
     <ClInclude Include="src\Core\RenderingManager.h" />
     <ClInclude Include="src\App\Bullet.h" />
+    <ClInclude Include="src\Core\ObjectPool.h" />
+    <ClInclude Include="src\Core\ObjectTypes.h" />
+    <ClInclude Include="src\App\Enemy.h" />
+    <ClInclude Include="src\App\Trap.h" />
+    <ClInclude Include="src\App\Citizen.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App\Character.cpp">
@@ -91,5 +96,9 @@
     <ClCompile Include="src\Core\RenderingManager.cpp" />
     <ClCompile Include="src\Core\Sprite.cpp" />
     <ClCompile Include="src\App\Bullet.cpp" />
+    <ClCompile Include="src\Core\ObjectPool.cpp" />
+    <ClCompile Include="src\App\Enemy.cpp" />
+    <ClCompile Include="src\App\Trap.cpp" />
+    <ClCompile Include="src\App\Citizen.cpp" />
   </ItemGroup>
 </Project>
