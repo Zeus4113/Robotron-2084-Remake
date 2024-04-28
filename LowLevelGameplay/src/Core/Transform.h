@@ -6,7 +6,7 @@ namespace LLGP
 {
 	class Transform : public Component {
 	public:
-		Vector3<float> position;
+		Vector3f position;
 
 		//Vector3<float> rotation;
 		//Vector3<float> scale;

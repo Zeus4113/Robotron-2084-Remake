@@ -6,7 +6,7 @@ namespace LLGP {
 
 	Collider::Collider(GameObject* owner) : Component(owner) 
 	{ 
-		PhysicsManager::RegisterCollider(this); 
+		PhysicsManager::RegisterCollider(this);
 	}
 
 	Collider::~Collider() 
@@ -25,8 +25,28 @@ namespace LLGP {
 		Vector2f bMax = pos2 + otherBox->GetSize();
 
 		if (aMax.x >= bMin.x && aMin.x <= bMax.x && aMax.y >= bMin.y && aMin.y <= bMax.y) {
-			onCollision(otherBox);
-			return true;
+
+			if (!_isColliding) 
+			{
+				onCollisionEnter(otherBox);
+				_isColliding = true;
+				return true;
+			}
+			else 
+			{
+				onCollisionStay(otherBox);
+				return true;
+			}
+
+		}
+		else if (aMax.x <= bMin.x && aMin.x >= bMax.x || aMax.y <= bMin.y && aMin.y >= bMax.y)
+		{
+			if (_isColliding) 
+			{
+				onCollisionExit(otherBox);
+				_isColliding = false;
+				return false;
+			}
 		}
 
 		return false;

@@ -23,8 +23,7 @@ namespace LLGP
 		{
 			if (_Sprites[i] == oldSprite)
 			{
-				_Sprites[i] = nullptr;
-				delete _Sprites[i];
+				_Sprites.erase(_Sprites.begin() + i);
 			}
 		}
 	}

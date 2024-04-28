@@ -4,6 +4,8 @@
 
 namespace LLGP 
 {
+	class Collider;
+
 	class Character : public Component
 	{
 	public:
@@ -14,6 +16,13 @@ namespace LLGP
 		void HandleShooting(Vector2f shootingValue);
 		void OnShoot(int input);
 		void Awake() override;
+
+		void OnCollisionEnter(Collider* col);
+		void OnCollisionExit(Collider* col);
+		void OnCollisionStay(Collider* col);
+
+		void OnDead();
+
 	private:
 		float _MovementSpeed = 0.025f;
 		Vector2f _AimVector;

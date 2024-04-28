@@ -100,6 +100,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\App\EnemyManager.h" />
+    <ClInclude Include="src\App\GameManager.h" />
     <ClInclude Include="src\App\Citizen.h" />
     <ClInclude Include="src\App\Enemy.h" />
     <ClInclude Include="src\Core\ObjectPool.h" />
@@ -126,6 +128,8 @@
     <ClInclude Include="src\App\Trap.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\App\EnemyManager.cpp" />
+    <ClCompile Include="src\App\GameManager.cpp" />
     <ClCompile Include="src\App\Citizen.cpp" />
     <ClCompile Include="src\App\Enemy.cpp" />
     <ClCompile Include="src\Core\ObjectPool.cpp" />

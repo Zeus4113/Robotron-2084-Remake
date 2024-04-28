@@ -4,8 +4,10 @@
 #include <Core/input_manager.h>
 #include <Core/GameObject.h>
 #include <Core/Rigidbody.h>
+#include <Core/Collider.h>
 #include <Core/Sprite.h>
 #include <Core/ObjectPool.h>
+#include<Core/Event.h>
 
 
 namespace LLGP {
@@ -13,13 +15,21 @@ namespace LLGP {
 	Character::Character(GameObject* owner) : Component(owner)
 	{
 		// Add and Set Rigidbody Component
-		this->GetGameObject()->AddComponent<LLGP::Rigidbody>();
-		this->GetGameObject()->GetComponent<LLGP::Rigidbody>()->SetSize(Vector2f(25.f, 25.f) / 2.f);
-		this->GetGameObject()->GetComponent<LLGP::Rigidbody>()->SetMass(1.f);
+		owner->AddComponent<LLGP::Rigidbody>();
+		owner->GetComponent<LLGP::Rigidbody>()->SetSize(Vector2f(25.f, 25.f) / 2.f);
+		owner->GetComponent<LLGP::Rigidbody>()->SetMass(1.f);
 
 		// Add and Set Sprite Component
-		this->GetGameObject()->AddComponent<LLGP::Sprite>();
-		this->GetGameObject()->GetComponent<LLGP::Sprite>()->SetSize(Vector2f(25.f, 25.f));
+		owner->AddComponent<LLGP::Sprite>();
+		owner->GetComponent<LLGP::Sprite>()->SetSize(Vector2f(25.f, 25.f));
+
+		// Bind Collider Event
+		if (owner->GetComponent<Collider>())
+		{
+			owner->GetComponent<Collider>()->onCollisionEnter += std::bind(&Character::OnCollisionEnter, this, std::placeholders::_1);
+			owner->GetComponent<Collider>()->onCollisionExit += std::bind(&Character::OnCollisionExit, this, std::placeholders::_1);
+			owner->GetComponent<Collider>()->onCollisionStay += std::bind(&Character::OnCollisionStay, this, std::placeholders::_1);
+		}
 	}
 	
 	void Character::HandleMovement(Vector2f movementValue)
@@ -59,5 +69,25 @@ namespace LLGP {
 		InputManager::onMovementCancelled += std::bind(&Character::HandleMovement, this, std::placeholders::_1);
 		InputManager::onShootingPerformed += std::bind(&Character::HandleShooting, this, std::placeholders::_1);
 		InputManager::onShoot += std::bind(&Character::OnShoot, this, std::placeholders::_1);
+	}
+
+	void Character::OnCollisionEnter(Collider* col)
+	{
+		std::cout << this->GetGameObject()->GetName() << " is touching " << col->GetGameObject()->GetName() << " (ENTER)" << std::endl;
+	}
+
+	void Character::OnCollisionExit(Collider* col) 
+	{
+		std::cout << this->GetGameObject()->GetName() << " is touching " << col->GetGameObject()->GetName() << " (EXIT)" << std::endl;
+	}
+
+	void Character::OnCollisionStay(Collider* col)
+	{
+		//std::cout << this->GetGameObject()->GetName() << " is touching " << col->GetGameObject()->GetName() << " (STAY)" << std::endl;
+	}
+	void Character::OnDead()
+	{
+		this->GetGameObject()->GetComponent<Rigidbody>()->SetVelocity(Vector2f(0, 0));
+		ObjectPool::ReturnObject(this->GetGameObject());
 	}
 }

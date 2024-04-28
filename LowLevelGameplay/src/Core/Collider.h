@@ -16,10 +16,12 @@ namespace LLGP {
 		void SetSize(Vector2f size) { this->_size = size; }
 		Vector2f GetSize() { return _size; }
 
-		Event<Collider*> onCollision;
+		Event<Collider*> onCollisionEnter;
+		Event<Collider*> onCollisionStay;
+		Event<Collider*> onCollisionExit;
 
 	private:
-
+		bool _isColliding = false;
 		Vector2f _size;
 		Vector2f offset;
 	};

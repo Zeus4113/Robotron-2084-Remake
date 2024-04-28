@@ -69,6 +69,8 @@
     <ClInclude Include="src\App\Enemy.h" />
     <ClInclude Include="src\App\Trap.h" />
     <ClInclude Include="src\App\Citizen.h" />
+    <ClInclude Include="src\App\GameManager.h" />
+    <ClInclude Include="src\App\EnemyManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App\Character.cpp">
@@ -100,5 +102,7 @@
     <ClCompile Include="src\App\Enemy.cpp" />
     <ClCompile Include="src\App\Trap.cpp" />
     <ClCompile Include="src\App\Citizen.cpp" />
+    <ClCompile Include="src\App\GameManager.cpp" />
+    <ClCompile Include="src\App\EnemyManager.cpp" />
   </ItemGroup>
 </Project>

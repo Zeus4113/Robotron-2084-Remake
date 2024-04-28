@@ -13,7 +13,8 @@ namespace LLGP
 		~Bullet() = default;
 		 
 		void Init(Vector2f direction, float force);
-		void Destroy(Collider* col);
+		void OnCollision(Collider* col);
+		void OnDead();
 
 	private:
 		float _Force;

@@ -14,7 +14,10 @@
 #include <Core/EntityManager.h>
 #include <Core/RenderingManager.h>
 #include <App/Bullet.h>
+#include <App/Enemy.h>
 #include <Core/ObjectPool.h>
+#include <App/GameManager.h>
+#include <App/EnemyManager.h>
 
 #define FIXEDFRAMERATE 0.02f
 #define RECTSIZE LLGP::Vector2f::one * 25
@@ -29,85 +32,15 @@
 		float deltaTime = 0.f;
 		float timeSincePhysicsStep = 0.f;
 
-		LLGP::ObjectPool::AddObject(LLGP::ObjectTypes::Player, 1);
-		LLGP::ObjectPool::AddObject(LLGP::ObjectTypes::Bullet, 10);
+		LLGP::GameManager* gm = new LLGP::GameManager();
+
+		gm->Initialise();
+		gm->SetupLevel();
 
 		// Awake
 		LLGP::EntityManager::Awake();
 
-		// Create GameObject (Player)
-		LLGP::GameObject* playerCharacter = LLGP::ObjectPool::GetObject(LLGP::ObjectTypes::Player, LLGP::Vector2f(
-			LLGP::RenderingManager::GetWindow()->getSize().x / 3,
-			LLGP::RenderingManager::GetWindow()->getSize().y / 3
-		));
-
-		// Create Character
-		LLGP::GameObject* enemyCharacter = new LLGP::GameObject();
-		enemyCharacter->transform->position = LLGP::Vector3f(
-			LLGP::RenderingManager::GetWindow()->getSize().x / 1.5,
-			LLGP::RenderingManager::GetWindow()->getSize().y / 3
-		);
-
-		// Add and Set Collider Component (Enemy)
-		enemyCharacter->AddComponent<LLGP::Rigidbody>();
-		enemyCharacter->GetComponent<LLGP::Rigidbody>()->SetSize(RECTSIZE / 2.f);
-		enemyCharacter->GetComponent<LLGP::Rigidbody>()->SetMass(0.5f);
-
-		// Add and Set Sprite Component (Enemy)
-		enemyCharacter->AddComponent<LLGP::Sprite>();
-		enemyCharacter->GetComponent<LLGP::Sprite>()->SetSize(RECTSIZE);
-
-
-		// Create level borders
-		LLGP::GameObject* bottomBorder = new LLGP::GameObject();
-		bottomBorder->transform->position = LLGP::Vector3f(
-			LLGP::RenderingManager::GetWindow()->getSize().x / 2 , 
-			LLGP::RenderingManager::GetWindow()->getSize().y 
-		);
-
-		LLGP::GameObject* topBorder = new LLGP::GameObject();
-		topBorder->transform->position = LLGP::Vector3f(
-			LLGP::RenderingManager::GetWindow()->getSize().x / 2,
-			0
-		);
-
-		LLGP::GameObject* leftBorder = new LLGP::GameObject();
-		leftBorder->transform->position = LLGP::Vector3f(
-			0, 
-			LLGP::RenderingManager::GetWindow()->getSize().y / 2
-		);
-
-		LLGP::GameObject* RightBorder = new LLGP::GameObject();
-		RightBorder->transform->position = LLGP::Vector3f(
-			LLGP::RenderingManager::GetWindow()->getSize().x, 
-			LLGP::RenderingManager::GetWindow()->getSize().y / 2
-		);
-
-		// Add and Set Collider Component (Border)
-		bottomBorder->AddComponent<LLGP::Collider>();
-		bottomBorder->GetComponent<LLGP::Collider>()->SetSize(LLGP::Vector2f(1000, 10) / 2);
-
-		topBorder->AddComponent<LLGP::Collider>();
-		topBorder->GetComponent<LLGP::Collider>()->SetSize(LLGP::Vector2f(1000, 10) / 2);
-
-		leftBorder->AddComponent<LLGP::Collider>();
-		leftBorder->GetComponent<LLGP::Collider>()->SetSize(LLGP::Vector2f(10, 1000) / 2);
-
-		RightBorder->AddComponent<LLGP::Collider>();
-		RightBorder->GetComponent<LLGP::Collider>()->SetSize(LLGP::Vector2f(10, 1000) / 2);
-
-		// Add and Set Sprite Component (Border)
-		bottomBorder->AddComponent<LLGP::Sprite>();
-		bottomBorder->GetComponent<LLGP::Sprite>()->SetSize(LLGP::Vector2f(1000, 10));
-
-		topBorder->AddComponent<LLGP::Sprite>();
-		topBorder->GetComponent<LLGP::Sprite>()->SetSize(LLGP::Vector2f(1000, 10));
-
-		leftBorder->AddComponent<LLGP::Sprite>();
-		leftBorder->GetComponent<LLGP::Sprite>()->SetSize(LLGP::Vector2f(10, 1000));
-
-		RightBorder->AddComponent<LLGP::Sprite>();
-		RightBorder->GetComponent<LLGP::Sprite>()->SetSize(LLGP::Vector2f(10, 1000));
+		gm->StartGame();
 
 		// Update
 		while (LLGP::RenderingManager::GetWindow()->isOpen())
@@ -127,6 +60,15 @@
 
 			// Input Update
 			LLGP::InputManager::CheckInput();
+
+			if (LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetActive()) 
+			{
+				LLGP::EnemyManager::UpdateEnemyDirection(LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetTransform()->position);
+			}
+			else if(!LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetActive())
+			{
+				LLGP::EnemyManager::UpdateEnemyDirection(LLGP::Vector3f(0,0,0));
+			}
 
 			// Physics Update
 			timeSincePhysicsStep += deltaTime;

@@ -19,8 +19,7 @@ namespace LLGP {
 		{
 			if (_Colliders[i] == oldCollider)
 			{
-				_Colliders[i] = nullptr;
-				delete _Colliders[i];
+				_Colliders.erase(_Colliders.begin() + i);
 			}
 		}
 	}
@@ -36,8 +35,7 @@ namespace LLGP {
 		{
 			if (_Rigidbodies[i] == oldRigidbody)
 			{
-				_Rigidbodies[i] = nullptr;
-				delete _Rigidbodies[i];
+				_Rigidbodies.erase(_Rigidbodies.begin() + i);
 			}
 		}
 	}

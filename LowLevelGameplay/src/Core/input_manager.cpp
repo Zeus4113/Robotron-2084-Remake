@@ -10,7 +10,10 @@ namespace LLGP {
 	Vector2f InputManager::shootingVectorObserver = Vector2f::zero;
 	Event<Vector2f> InputManager::onShootingPerformed;
 	Event<Vector2f> InputManager::onShootingCancelled;
+
 	Event<int> InputManager::onShoot;
+	Event<bool> InputManager::onRestart;
+	Event<bool> InputManager::onPause;
 
 	bool InputManager::isPressed;
 
@@ -22,6 +25,11 @@ namespace LLGP {
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Right) - sf::Keyboard::isKeyPressed(sf::Keyboard::Left),
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Down) - sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
 		);
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) 
+		{
+			onRestart(true);
+		}
 
 		if (movementVector != movementVectorObserver) {
 

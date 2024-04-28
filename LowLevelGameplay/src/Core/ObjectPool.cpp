@@ -1,10 +1,6 @@
 #include "ObjectPool.h"
 #include <iostream>
-#include <App/Bullet.h>
-#include <App/Character.h>
-#include <App/Enemy.h>
-#include <App/Trap.h>
-#include <App/Citizen.h>
+#include <Core/ObjectTypes.h>
 
 namespace LLGP 
 {
@@ -27,19 +23,24 @@ namespace LLGP
 				newObject->AddComponent<Bullet>();
 				newObject->SetName("Bullet");
 				break;
+
 			case ObjectTypes::Player:
 				newObject->AddComponent<Character>();
 				newObject->SetName("Player");
 				break;
-				//case ObjectTypes::Enemy:
-				//	newObject->AddComponent<Enemy>();
-				//	break;
-				//case ObjectTypes::Trap:
-				//	newObject->AddComponent<Trap>();
-				//	break;
-				//case ObjectTypes::Citizen:
-				//	newObject->AddComponent<Citizen>();
-				//	break;
+
+			case ObjectTypes::Enemy:
+				newObject->AddComponent<Enemy>();
+				newObject->SetName("Enemy");
+				break;
+
+			//case ObjectTypes::Trap:
+			//	newObject->AddComponent<Trap>();
+			//	break;
+ 
+			//case ObjectTypes::Citizen:
+			//	newObject->AddComponent<Citizen>();
+			//	break;
 			}
 
 			_PooledObjects.push_back(newObject);
@@ -66,6 +67,22 @@ namespace LLGP
 		}
 	}
 
+	void ObjectPool::ReturnAllObjects()
+	{
+		for (int i = 0; i < _InUseObjects.size(); i++) 
+		{
+			_InUseObjects[i]->SetActive(false);
+			_InUseObjects[i]->transform->position = Vector3f(0, 0, 0);
+			_PooledObjects.push_back(_InUseObjects[i]);
+			_InUseObjects.erase(_InUseObjects.begin() + i);
+
+			std::cout << "Returning Object: " << _PooledObjects[_PooledObjects.size() - 1]->GetName()
+				<< " at position " << _PooledObjects[_PooledObjects.size() - 1]->GetTransform()->position.x
+				<< " " << _PooledObjects[_PooledObjects.size() - 1]->GetTransform()->position.y
+				<< std::endl;
+		}
+	}
+
 	GameObject* ObjectPool::GetObject(ObjectTypes objectType, Vector2f position)
 	{
 		for (int i = 0; i < _PooledObjects.size(); i++)
@@ -87,6 +104,20 @@ namespace LLGP
 			}
 		}
 
+		return nullptr;
+	}
+	GameObject* ObjectPool::GetObjectRef(ObjectTypes objectType)
+	{
+		for (int i = 0; i < _InUseObjects.size(); i++)
+		{
+			if (_InUseObjects[i] != nullptr)
+			{
+				if (_InUseObjects[i]->CompareType(objectType))
+				{
+					return _InUseObjects[i];
+				}
+			}
+		}
 		return nullptr;
 	}
 }

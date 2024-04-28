@@ -15,8 +15,10 @@ namespace LLGP
 		static void AddObject(ObjectTypes objectType, int objectAmount);
 
 		static void ReturnObject(GameObject* objectToReturn);
+		static void ReturnAllObjects();
 
 		static GameObject* GetObject(ObjectTypes objectType, Vector2f position);
+		static GameObject* GetObjectRef(ObjectTypes objectType);
 
 	private:
 		static std::vector<GameObject*> _PooledObjects;
