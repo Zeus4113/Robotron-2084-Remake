@@ -34,12 +34,12 @@ namespace LLGP
 
 	void Bullet::OnCollision(Collider* col)
 	{
-		//std::cout << this->GetGameObject()->GetName() << " is touching " << col->GetGameObject()->GetName() << std::endl;
+		std::cout << this->GetGameObject()->GetName() << " is touching " << col->GetGameObject()->GetName() << std::endl;
 
-		if (col->GetGameObject()->CompareType(ObjectTypes::Enemy))
-		{
-			col->GetGameObject()->GetComponent<Enemy>()->OnDead();
-		}
+		//if (col->GetGameObject()->CompareType(ObjectTypes::Enemy))
+		//{
+		//	col->GetGameObject()->GetComponent<Enemy>()->OnDead();
+		//}
 
 		OnDead();
 	}

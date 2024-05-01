@@ -22,8 +22,8 @@ namespace LLGP {
 		// Movement Input Detection
 
 		Vector2f movementVector = Vector2f(
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Right) - sf::Keyboard::isKeyPressed(sf::Keyboard::Left),
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Down) - sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
+			sf::Keyboard::isKeyPressed(sf::Keyboard::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::A),
+			sf::Keyboard::isKeyPressed(sf::Keyboard::S) - sf::Keyboard::isKeyPressed(sf::Keyboard::W)
 		);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) 
@@ -50,8 +50,8 @@ namespace LLGP {
 		// Shooting Input Detection
 
 		Vector2f shootingVector = Vector2f(
-			sf::Keyboard::isKeyPressed(sf::Keyboard::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::A),
-			sf::Keyboard::isKeyPressed(sf::Keyboard::S) - sf::Keyboard::isKeyPressed(sf::Keyboard::W)
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Right) - sf::Keyboard::isKeyPressed(sf::Keyboard::Left),
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Down) - sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
 		);
 
 		if (shootingVector != shootingVectorObserver) {

@@ -21,6 +21,7 @@ namespace LLGP
 		// Add and Set Sprite Component
 		owner->AddComponent<LLGP::Sprite>();
 		owner->GetComponent<LLGP::Sprite>()->SetSize(Vector2f(25.f, 25.f));
+		owner->GetComponent<LLGP::Sprite>()->SetColor(sf::Color::Red);
 
 		if (owner->GetComponent<Collider>())
 		{
@@ -52,6 +53,13 @@ namespace LLGP
 		if (col->GetGameObject()->CompareType(ObjectTypes::Player)) 
 		{
 			col->GetGameObject()->GetComponent<Character>()->OnDead();
+		}
+
+		if (col->GetGameObject()->CompareType(ObjectTypes::Bullet)) 
+		{
+			//col->GetGameObject()->GetComponent<Bullet>()->OnDead();
+			this->OnDead();
+
 		}
 	}
 

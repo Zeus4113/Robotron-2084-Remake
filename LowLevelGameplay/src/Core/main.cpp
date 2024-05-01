@@ -63,11 +63,18 @@
 
 			if (LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetActive()) 
 			{
+				std::cout << "Player Active!" << std::endl;
 				LLGP::EnemyManager::UpdateEnemyDirection(LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetTransform()->position);
 			}
-			else if(!LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetActive())
+			else
 			{
-				LLGP::EnemyManager::UpdateEnemyDirection(LLGP::Vector3f(0,0,0));
+				std::cout << "Player Not Active!" << std::endl;
+				LLGP::EnemyManager::UpdateEnemyDirection(LLGP::Vector3f::zero);
+			}
+
+			if ((rand() % 500) > 400) 
+			{
+				LLGP::EnemyManager::UpdateCitizenDestination();
 			}
 
 			// Physics Update

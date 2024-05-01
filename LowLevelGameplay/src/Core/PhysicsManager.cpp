@@ -11,6 +11,7 @@ namespace LLGP {
 	void PhysicsManager::RegisterCollider(LLGP::Collider* newCollider) 
 	{ 
 		_Colliders.push_back(newCollider); 
+		std::cout << "New Collider Added: " << newCollider->GetGameObject()->GetName() << std::endl;
 	}
 
 	void PhysicsManager::UnregisterCollider(Collider* oldCollider)
@@ -26,7 +27,8 @@ namespace LLGP {
 
 	void PhysicsManager::RegisterRigidbody(Rigidbody* newRigidbody) 
 	{ 
-		_Rigidbodies.push_back(newRigidbody); _Colliders.push_back(newRigidbody->GetCollider()); 
+		_Rigidbodies.push_back(newRigidbody); //_Colliders.push_back(newRigidbody->GetCollider()); 
+		std::cout << "New Rigidbody Added: " << newRigidbody->GetGameObject()->GetName() << std::endl;
 	}
 
 	void PhysicsManager::UnregisterRigidbody(Rigidbody* oldRigidbody)
@@ -42,20 +44,58 @@ namespace LLGP {
 
 	void PhysicsManager::CheckCollisions() {
 
-		for (int i = 0; i < _Rigidbodies.size(); i++)
+		//for (int i = 0; i < _Rigidbodies.size(); i++)
+		//{
+		//	if (_Rigidbodies[i]->GetGameObject()->GetActive()) 
+		//	{
+		//		for (int j = 0; j < _Colliders.size(); j++)
+		//		{
+		//			if (_Colliders[i]->GetGameObject()->GetActive())
+		//			{
+		//				if (_Rigidbodies[i]->GetGameObject() != _Colliders[j]->GetGameObject()) {
+
+		//					if (_Rigidbodies[i]->GetCollider()->Collision(_Colliders[j])) {
+
+		//						ResolveCollision(_Colliders[i], _Colliders[j]);
+		//					}
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
+
+		for (int i = 0; i < _Colliders.size(); i++) 
 		{
-			if (_Rigidbodies[i]->GetGameObject()->GetActive()) 
+			if (_Colliders[i]->GetGameObject()->GetActive()) 
 			{
-				for (int j = 0; j < _Colliders.size(); j++)
+				for (int j = i + 1; j < _Colliders.size(); j++) 
 				{
-					if (_Colliders[i]->GetGameObject()->GetActive())
+					if (_Colliders[j]->GetGameObject()->GetActive()) 
 					{
-						if (_Rigidbodies[i]->GetGameObject() != _Colliders[j]->GetGameObject()) {
+						if (_Colliders[i]->Collision(_Colliders[j]))
+						{
+							_Colliders[i]->SetColliding(true);
+							ResolveCollision(_Colliders[i], _Colliders[j]);
+						}
+					}
+				}
+			}
+		}
+	}
 
-							if (_Rigidbodies[i]->GetCollider()->Collision(_Colliders[j])) {
-
-								ResolveCollision(_Colliders[j], _Rigidbodies[i]);
-							}
+	void PhysicsManager::InitialiseColliders() 
+	{
+		for (int i = 0; i < _Colliders.size(); i++)
+		{
+			if (_Colliders[i]->GetGameObject()->GetActive())
+			{
+				for (int j = i + 1; j < _Colliders.size(); j++)
+				{
+					if (_Colliders[j]->GetGameObject()->GetActive())
+					{
+						if (_Colliders[i]->Collision(_Colliders[j]))
+						{
+							_Colliders[i]->SetColliding(true);
 						}
 					}
 				}
@@ -76,13 +116,27 @@ namespace LLGP {
 		}
 	}
 
-	void PhysicsManager::ResolveCollision(Collider* collider, Rigidbody* rigidbody) {
+	void PhysicsManager::ResolveCollision(Collider* collider, Collider* collider2) {
 
-		if (collider == nullptr || rigidbody == nullptr) return;
+		if (collider == nullptr || collider2 == nullptr) return;
 
-		if (collider->GetGameObject()->GetComponent<Rigidbody>()) {
-			Rigidbody* rigidbody2 = collider->GetGameObject()->GetComponent<Rigidbody>();
+		Rigidbody* rigidbody = nullptr;
+		Rigidbody* rigidbody2 = nullptr;
 
+		if (collider->GetGameObject()->GetComponent<Rigidbody>()) 
+		{
+			rigidbody = collider->GetGameObject()->GetComponent<Rigidbody>();
+		}
+
+		if (collider2->GetGameObject()->GetComponent<Rigidbody>()) 
+		{
+			rigidbody2 = collider2->GetGameObject()->GetComponent<Rigidbody>();
+		}
+
+		//std::cout << "Collision: " << collider->GetGameObject()->GetName() << " hit " << collider2->GetGameObject()->GetName() << std::endl;
+
+		if(rigidbody != nullptr && rigidbody2 != nullptr)
+		{
 			float mass1 = rigidbody->GetMass();
 			float mass2 = rigidbody2->GetMass();
 			float totalMass = mass1 + mass2;
@@ -96,15 +150,18 @@ namespace LLGP {
 
 			rigidbody->GetGameObject()->MoveObject(rigidbody->GetVelocity());
 			rigidbody2->GetGameObject()->MoveObject(rigidbody2->GetVelocity());
-
-			//std::cout << rigidbody->GetVelocity().x << " " << rigidbody->GetVelocity().y << std::endl;
-			//std::cout << rigidbody2->GetVelocity().x << " " << rigidbody2->GetVelocity().y << std::endl;
 		}
-		else 
+		else if(rigidbody != nullptr && rigidbody2 == nullptr)
 		{
 			rigidbody->SetVelocity(-rigidbody->GetVelocity());
 
 			rigidbody->GetGameObject()->MoveObject(rigidbody->GetVelocity());
+		}
+		else if (rigidbody == nullptr && rigidbody2 != nullptr)
+		{
+			rigidbody2->SetVelocity(-rigidbody2->GetVelocity());
+
+			rigidbody2->GetGameObject()->MoveObject(rigidbody2->GetVelocity());
 		}
 
 

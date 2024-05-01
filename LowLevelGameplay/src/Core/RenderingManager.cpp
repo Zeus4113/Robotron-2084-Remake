@@ -9,7 +9,7 @@ namespace LLGP
 
 	void RenderingManager::StartRender() 
 	{
-		_Window = new sf::RenderWindow(sf::VideoMode(990, 540), "Render Window");
+		_Window = new sf::RenderWindow(sf::VideoMode(660, 540), "ROBOTRON 2084");
 	}
 
 	void RenderingManager::RegisterSprite(Sprite* newSprite)

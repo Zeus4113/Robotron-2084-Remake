@@ -57,9 +57,12 @@ namespace LLGP {
 				(this->GetGameObject()->transform->position + Vector3f(_AimVector.x * 25, _AimVector.y * 25)).y
 				));
 
-			Bullet* bulletComponent = newBullet->GetComponent<Bullet>();
+			if (newBullet != nullptr) 
+			{
+				Bullet* bulletComponent = newBullet->GetComponent<Bullet>();
 
-			bulletComponent->Init(_AimVector, 10.f);
+				bulletComponent->Init(_AimVector, 10.f);
+			}
 		}
 	}
 

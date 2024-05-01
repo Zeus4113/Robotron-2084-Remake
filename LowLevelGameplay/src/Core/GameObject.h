@@ -22,16 +22,16 @@ namespace LLGP
 
 		Transform* transform;
 		inline void SetName(std::string newName) { m_Name = newName; }
-		inline std::string GetName() { return m_Name; }
+		inline std::string GetName() { if (this != nullptr) return m_Name; }
 
 		void SetActive(bool newActive) { m_Active = newActive; }
-		inline bool GetActive() { return m_Active; }
+		inline bool GetActive() { if(this != nullptr) return m_Active; }
 
 		inline void SetTag(std::string newTag) { m_Tag = newTag; }
-		inline bool CompareTag(std::string comp) { return m_Tag == comp; }
+		inline bool CompareTag(std::string comp) { if (this != nullptr) return m_Tag == comp; }
 
 		inline void SetType(ObjectTypes newType) { m_Type = newType; }
-		inline bool CompareType(ObjectTypes comp) { return m_Type == comp; }
+		inline bool CompareType(ObjectTypes comp) { if (this != nullptr) return m_Type == comp; }
 
 		virtual void Awake();
 
@@ -60,7 +60,7 @@ namespace LLGP
 		template<class T> requires isComponent<T> bool RemoveComponent(T* comp) { return false; }
 
 		void MoveObject(Vector2f movementVector) { transform->position += movementVector; }
-		inline Transform* GetTransform() { return transform; }
+		inline Transform* GetTransform() { if (this != nullptr) return transform; }
 
 	private:
 		std::string m_Name;

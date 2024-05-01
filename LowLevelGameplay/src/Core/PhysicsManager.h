@@ -12,8 +12,10 @@ namespace LLGP{
 	public:
 
 		static void CheckCollisions();
+
+		static void InitialiseColliders();
 		static void UpdatePhysics();
-		static void ResolveCollision(Collider* collider, Rigidbody* rigidbody);
+		static void ResolveCollision(Collider* collider, Collider* collider2);
 
 		static void RegisterCollider(Collider* newCollider);
 		static void UnregisterCollider(Collider* oldCollider);

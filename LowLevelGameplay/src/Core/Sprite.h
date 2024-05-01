@@ -11,6 +11,7 @@ namespace LLGP {
 		~Sprite();
 
 		void SetSize(Vector2f size) { _spriteShape.setSize(size); _spriteShape.setOrigin(size / 2); }
+		void SetColor(sf::Color color) { _spriteShape.setFillColor(color); }
 		void UpdateRender();
 		sf::RectangleShape GetShape() { return _spriteShape; }
 

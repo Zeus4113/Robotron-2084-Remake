@@ -99,6 +99,12 @@ namespace LLGP
 		return lhs -= rhs;
 	}
 
+	template<typename T, typename U> requires arithmatic<T> and arithmatic<U>
+	Vector3<T> operator-(const Vector3<T> lhs, const Vector3<U>& rhs)
+	{
+		return lhs -= rhs;
+	}
+
 	template<typename T> requires arithmatic<T>
 	Vector3<T> operator+(Vector3<T> lhs, const Vector3<T>& rhs)
 	{

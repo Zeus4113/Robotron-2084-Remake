@@ -26,24 +26,31 @@ namespace LLGP {
 
 		if (aMax.x >= bMin.x && aMin.x <= bMax.x && aMax.y >= bMin.y && aMin.y <= bMax.y) {
 
-			if (!_isColliding) 
+			
+
+			if (std::find(_inContactColliders.begin(), _inContactColliders.end(), otherBox) == _inContactColliders.end())
 			{
+				_inContactColliders.push_back(otherBox);
 				onCollisionEnter(otherBox);
+				otherBox->onCollisionEnter(this);
 				_isColliding = true;
 				return true;
 			}
-			else 
+			else if(std::find(_inContactColliders.begin(), _inContactColliders.end(), otherBox) != _inContactColliders.end())
 			{
 				onCollisionStay(otherBox);
+				otherBox->onCollisionStay(this);
 				return true;
 			}
 
 		}
 		else if (aMax.x <= bMin.x && aMin.x >= bMax.x || aMax.y <= bMin.y && aMin.y >= bMax.y)
 		{
-			if (_isColliding) 
+			if (std::find(_inContactColliders.begin(), _inContactColliders.end(), otherBox) != _inContactColliders.end())
 			{
+				_inContactColliders.erase(std::find(_inContactColliders.begin(), _inContactColliders.end(), otherBox));
 				onCollisionExit(otherBox);
+				otherBox->onCollisionExit(this);
 				_isColliding = false;
 				return false;
 			}

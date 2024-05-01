@@ -34,13 +34,15 @@ namespace LLGP
 				newObject->SetName("Enemy");
 				break;
 
-			//case ObjectTypes::Trap:
-			//	newObject->AddComponent<Trap>();
-			//	break;
+			case ObjectTypes::Trap:
+				newObject->AddComponent<Trap>();
+				newObject->SetName("Trap");
+				break;
  
-			//case ObjectTypes::Citizen:
-			//	newObject->AddComponent<Citizen>();
-			//	break;
+			case ObjectTypes::Citizen:
+				newObject->AddComponent<Citizen>();
+				newObject->SetName("Citizen");
+				break;
 			}
 
 			_PooledObjects.push_back(newObject);
@@ -59,10 +61,12 @@ namespace LLGP
 				_PooledObjects.push_back(_InUseObjects[i]);
 				_InUseObjects.erase(_InUseObjects.begin() + i);
 
-				std::cout << "Returning Object: " << _PooledObjects[_PooledObjects.size() - 1]->GetName() 
+				std::cout << "Returning Object: " << _PooledObjects.size() << " " << _InUseObjects.size() << std::endl;
+
+				/*std::cout << "Returning Object: " << _PooledObjects[_PooledObjects.size() - 1]->GetName() 
 					<< " at position " << _PooledObjects[_PooledObjects.size() - 1]->GetTransform()->position.x 
 					<< " " << _PooledObjects[_PooledObjects.size() - 1]->GetTransform()->position.y 
-					<< std::endl;
+					<< std::endl;*/
 			}
 		}
 	}
@@ -85,27 +89,27 @@ namespace LLGP
 
 	GameObject* ObjectPool::GetObject(ObjectTypes objectType, Vector2f position)
 	{
+		if (_PooledObjects.size() == 0) return nullptr;
+
 		for (int i = 0; i < _PooledObjects.size(); i++)
 		{
-			if (_PooledObjects[i] != nullptr) 
+			if (_PooledObjects[i]->CompareType(objectType))
 			{
-				if (_PooledObjects[i]->CompareType(objectType))
-				{
+				_PooledObjects[i]->transform->position = Vector3f(position);
+				_PooledObjects[i]->SetActive(true);
+				_InUseObjects.push_back(_PooledObjects[i]);
+				_PooledObjects.erase(_PooledObjects.begin() + i);
 
-					_PooledObjects[i]->transform->position = Vector3f(position);
-					_PooledObjects[i]->SetActive(true);
-					_InUseObjects.push_back(_PooledObjects[i]);
-					_PooledObjects.erase(_PooledObjects.begin() + i);
+				std::cout << "Getting Object: " << _PooledObjects.size() << " " << _InUseObjects.size() << std::endl;
 
-					std::cout << "Getting Object: " << _InUseObjects[_InUseObjects.size() - 1]->GetName() << " at position " << position.x << " " << position.y << std::endl;
+				//std::cout << "Getting Object: " << _InUseObjects[_InUseObjects.size() - 1]->GetName() << " at position " << position.x << " " << position.y << std::endl;
 
-					return _InUseObjects[_InUseObjects.size() - 1];
-				}
-			}
+				return _InUseObjects[_InUseObjects.size() - 1];
+			}		
 		}
-
 		return nullptr;
 	}
+
 	GameObject* ObjectPool::GetObjectRef(ObjectTypes objectType)
 	{
 		for (int i = 0; i < _InUseObjects.size(); i++)
@@ -118,6 +122,18 @@ namespace LLGP
 				}
 			}
 		}
+
+		for (int i = 0; i < _PooledObjects.size(); i++)
+		{
+			if (_PooledObjects[i] != nullptr)
+			{
+				if (_PooledObjects[i]->CompareType(objectType))
+				{
+					return _PooledObjects[i];
+				}
+			}
+		}
+
 		return nullptr;
 	}
 }

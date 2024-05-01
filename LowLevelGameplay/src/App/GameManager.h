@@ -1,5 +1,6 @@
 #pragma once
 #include <Core/RenderingManager.h>
+#include <Core/PhysicsManager.h>
 #include <Core/GameObject.h>
 #include <Core/Collider.h>
 #include <Core/Sprite.h>
@@ -18,8 +19,10 @@ namespace LLGP
 		void Initialise() 
 		{
 			ObjectPool::AddObject(LLGP::ObjectTypes::Player, 1);
-			ObjectPool::AddObject(LLGP::ObjectTypes::Enemy, 10);
-			ObjectPool::AddObject(LLGP::ObjectTypes::Bullet, 10);
+			ObjectPool::AddObject(LLGP::ObjectTypes::Enemy, 15);
+			ObjectPool::AddObject(LLGP::ObjectTypes::Bullet, 25);
+			ObjectPool::AddObject(LLGP::ObjectTypes::Trap, 10);
+			ObjectPool::AddObject(LLGP::ObjectTypes::Citizen, 5);
 
 			InputManager::onRestart += std::bind(&GameManager::RestartGame, this, std::placeholders::_1);
 		}
@@ -88,40 +91,17 @@ namespace LLGP
 
 			for (int i = 0; i < 10; i++) 
 			{
-				Vector2f spawnPos = Vector2f::zero;
+				LLGP::ObjectPool::GetObject(LLGP::ObjectTypes::Enemy, GetSpawnPosition());
+			}
 
-				switch (rand() % 3) {
-				case 0:
-					spawnPos = LLGP::Vector2f(
-						rand() % LLGP::RenderingManager::GetWindow()->getSize().x,
-						rand() % LLGP::RenderingManager::GetWindow()->getSize().y / 3
-					);
-					break;
+			for (int i = 0; i < 5; i++) 
+			{
+				LLGP::ObjectPool::GetObject(LLGP::ObjectTypes::Trap, GetSpawnPosition());
+			}
 
-				case 1:
-					spawnPos = LLGP::Vector2f(
-						rand() % LLGP::RenderingManager::GetWindow()->getSize().x,
-						rand() % LLGP::RenderingManager::GetWindow()->getSize().y / 3 + LLGP::RenderingManager::GetWindow()->getSize().y / 1.5f
-					);
-					break;
-
-				case 2:
-					spawnPos = LLGP::Vector2f(
-						rand() % LLGP::RenderingManager::GetWindow()->getSize().x / 3,
-						rand() % LLGP::RenderingManager::GetWindow()->getSize().y
-					);
-					break;
-
-				case 3:
-					spawnPos = LLGP::Vector2f(
-						rand() % LLGP::RenderingManager::GetWindow()->getSize().x / 3 + LLGP::RenderingManager::GetWindow()->getSize().x / 1.5f,
-						rand() % LLGP::RenderingManager::GetWindow()->getSize().y
-					);
-					break;
-
-				}
-
-				LLGP::GameObject* enemyCharacter = LLGP::ObjectPool::GetObject(LLGP::ObjectTypes::Enemy, spawnPos);
+			for (int i = 0; i < 5; i++)
+			{
+				LLGP::ObjectPool::GetObject(LLGP::ObjectTypes::Citizen, GetSpawnPosition());
 			}
 		}
 
@@ -131,6 +111,63 @@ namespace LLGP
 
 			ObjectPool::ReturnAllObjects();
 			StartGame();
+		}
+
+		Vector2f GetSpawnPosition() 
+		{
+			while (true) 
+			{
+				Vector2f spawnPos = Vector2f::zero;
+				Vector2f playerPos = Vector2f(
+					LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->transform->position.x,
+					LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->transform->position.y
+				);
+
+
+				spawnPos = LLGP::Vector2f(
+					rand() % LLGP::RenderingManager::GetWindow()->getSize().x,
+					rand() % LLGP::RenderingManager::GetWindow()->getSize().y
+				);
+
+				if ((spawnPos - playerPos).GetMagnitude() > 100.f)
+				{
+					return spawnPos;
+				}
+			}
+
+
+			//switch (direction) {
+			//case 0:
+			//	spawnPos = LLGP::Vector2f(
+			//		rand() % LLGP::RenderingManager::GetWindow()->getSize().x,
+			//		rand() % LLGP::RenderingManager::GetWindow()->getSize().y / 3
+			//	);
+			//	break;
+
+			//case 1:
+			//	spawnPos = LLGP::Vector2f(
+			//		rand() % LLGP::RenderingManager::GetWindow()->getSize().x,
+			//		rand() % LLGP::RenderingManager::GetWindow()->getSize().y / 3 + LLGP::RenderingManager::GetWindow()->getSize().y / 1.5f
+			//	);
+			//	break;
+
+			//case 2:
+			//	spawnPos = LLGP::Vector2f(
+			//		rand() % LLGP::RenderingManager::GetWindow()->getSize().x / 3,
+			//		rand() % LLGP::RenderingManager::GetWindow()->getSize().y
+			//	);
+			//	break;
+
+			//case 3:
+			//	spawnPos = LLGP::Vector2f(
+			//		rand() % LLGP::RenderingManager::GetWindow()->getSize().x / 3 + LLGP::RenderingManager::GetWindow()->getSize().x / 1.5f,
+			//		rand() % LLGP::RenderingManager::GetWindow()->getSize().y
+			//	);
+			//	break;
+
+			//}
+
+			return Vector2f::zero;
 		}
 	};
 }

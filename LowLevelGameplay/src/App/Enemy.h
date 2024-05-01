@@ -17,7 +17,7 @@ namespace LLGP
 		void OnDead();
 
 	private:
-		float _MovementSpeed = 0.25f;
+		float _MovementSpeed = 0.5f;
 	};
 }
 
