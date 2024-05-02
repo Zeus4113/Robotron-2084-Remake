@@ -13,6 +13,7 @@ namespace LLGP
 		~Citizen();
 
 		void OnCollisionEnter(Collider* col);
+        void OnDead();
 		void GenerateDestination();
 
 	private:

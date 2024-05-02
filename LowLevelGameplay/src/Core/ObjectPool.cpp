@@ -1,6 +1,8 @@
 #include "ObjectPool.h"
 #include <iostream>
 #include <Core/ObjectTypes.h>
+#include <Core/GameObject.h>
+#include <Core/Collider.h>
 
 namespace LLGP 
 {
@@ -57,11 +59,11 @@ namespace LLGP
 			if (_InUseObjects[i] == objectToReturn)
 			{
 				_InUseObjects[i]->SetActive(false);
+				_InUseObjects[i]->GetComponent<Collider>()->Reset();
+
 				_InUseObjects[i]->transform->position = Vector3f(0, 0, 0);
 				_PooledObjects.push_back(_InUseObjects[i]);
 				_InUseObjects.erase(_InUseObjects.begin() + i);
-
-				std::cout << "Returning Object: " << _PooledObjects.size() << " " << _InUseObjects.size() << std::endl;
 
 				/*std::cout << "Returning Object: " << _PooledObjects[_PooledObjects.size() - 1]->GetName() 
 					<< " at position " << _PooledObjects[_PooledObjects.size() - 1]->GetTransform()->position.x 
@@ -76,14 +78,17 @@ namespace LLGP
 		for (int i = 0; i < _InUseObjects.size(); i++) 
 		{
 			_InUseObjects[i]->SetActive(false);
+			_InUseObjects[i]->GetComponent<Collider>()->Reset();
+
 			_InUseObjects[i]->transform->position = Vector3f(0, 0, 0);
 			_PooledObjects.push_back(_InUseObjects[i]);
 			_InUseObjects.erase(_InUseObjects.begin() + i);
+			i--;
 
-			std::cout << "Returning Object: " << _PooledObjects[_PooledObjects.size() - 1]->GetName()
+			/*std::cout << "Returning Object (ALL): " << _PooledObjects[_PooledObjects.size() - 1]->GetName()
 				<< " at position " << _PooledObjects[_PooledObjects.size() - 1]->GetTransform()->position.x
 				<< " " << _PooledObjects[_PooledObjects.size() - 1]->GetTransform()->position.y
-				<< std::endl;
+				<< std::endl;*/
 		}
 	}
 
@@ -97,16 +102,17 @@ namespace LLGP
 			{
 				_PooledObjects[i]->transform->position = Vector3f(position);
 				_PooledObjects[i]->SetActive(true);
+
 				_InUseObjects.push_back(_PooledObjects[i]);
 				_PooledObjects.erase(_PooledObjects.begin() + i);
-
-				std::cout << "Getting Object: " << _PooledObjects.size() << " " << _InUseObjects.size() << std::endl;
 
 				//std::cout << "Getting Object: " << _InUseObjects[_InUseObjects.size() - 1]->GetName() << " at position " << position.x << " " << position.y << std::endl;
 
 				return _InUseObjects[_InUseObjects.size() - 1];
 			}		
 		}
+
+
 		return nullptr;
 	}
 

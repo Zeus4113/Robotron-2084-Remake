@@ -30,16 +30,18 @@ namespace LLGP
 
 	void Trap::OnCollisionEnter(Collider* col)
 	{
-		GameObject* go = col->GetGameObject();
+		//std::cout << this->GetGameObject()->GetName() << " is touching " << col->GetGameObject()->GetName() << std::endl;
 
-		if (go->CompareType(ObjectTypes::Player))
-		{
-			go->GetComponent<Character>()->OnDead();
-		}
+		//GameObject* go = col->GetGameObject();
 
-		if (go->CompareType(ObjectTypes::Enemy)) 
-		{
-			go->GetComponent<Enemy>()->OnDead();
-		}
+		//if (go->CompareType(ObjectTypes::Player))
+		//{
+		//	go->GetComponent<Character>()->OnDead();
+		//}
+
+		//if (go->CompareType(ObjectTypes::Enemy)) 
+		//{
+		//	go->GetComponent<Enemy>()->OnDead();
+		//}
 	}
 }

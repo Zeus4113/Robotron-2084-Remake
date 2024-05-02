@@ -16,6 +16,7 @@ namespace LLGP {
 	Event<bool> InputManager::onPause;
 
 	bool InputManager::isPressed;
+	bool InputManager::isRestartPressed = false;
 
 	void InputManager::CheckInput() {
 
@@ -28,7 +29,15 @@ namespace LLGP {
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) 
 		{
-			onRestart(true);
+			if (!isRestartPressed) 
+			{
+				isRestartPressed = true;
+				onRestart(true);
+			}
+		}
+		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::R)) 
+		{
+			isRestartPressed = false;
 		}
 
 		if (movementVector != movementVectorObserver) {

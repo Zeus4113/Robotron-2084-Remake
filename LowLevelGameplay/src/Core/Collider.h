@@ -17,6 +17,8 @@ namespace LLGP {
 		Vector2f GetSize() { return _size; }
 		void SetColliding(bool isTrue) { _isColliding = isTrue; }
 
+		void Reset() override;
+
 		Event<Collider*> onCollisionEnter;
 		Event<Collider*> onCollisionStay;
 		Event<Collider*> onCollisionExit;

@@ -6,6 +6,7 @@
 #include<Core/Event.h>
 #include <Core/ObjectPool.h>
 #include <App/EnemyManager.h>
+#include <App/ScoreManager.h>
 
 namespace LLGP 
 {
@@ -48,18 +49,11 @@ namespace LLGP
 
 	void Enemy::OnCollisionEnter(Collider* col)
 	{
-		std::cout << this->GetGameObject()->GetName() << " is touching " << col->GetGameObject()->GetName() << std::endl;
-
-		if (col->GetGameObject()->CompareType(ObjectTypes::Player)) 
-		{
-			col->GetGameObject()->GetComponent<Character>()->OnDead();
-		}
+		//std::cout << this->GetGameObject()->GetName() << " is touching " << col->GetGameObject()->GetName() << std::endl;
 
 		if (col->GetGameObject()->CompareType(ObjectTypes::Bullet)) 
 		{
-			//col->GetGameObject()->GetComponent<Bullet>()->OnDead();
 			this->OnDead();
-
 		}
 	}
 
@@ -67,6 +61,7 @@ namespace LLGP
 	{
 		this->GetGameObject()->GetComponent<Rigidbody>()->SetVelocity(Vector2f(0, 0));
 		ObjectPool::ReturnObject(this->GetGameObject());
+		ScoreManager::EnemyKilled();
 	}
 
 }

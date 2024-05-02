@@ -1,9 +1,19 @@
 #include "EnemyManager.h"
+#include <Core/RenderingManager.h>
+#include <App/ScoreManager.h>
+#include <iostream>
 
 namespace LLGP 
 {
 	std::vector<Enemy*> EnemyManager::_Enemies;
 	std::vector<Citizen*> EnemyManager::_Citizens;
+
+	GameManager* EnemyManager::_gm;
+
+	void EnemyManager::SetGameManager(GameManager* gm)
+	{
+		_gm = gm;
+	}
 
 	void EnemyManager::RegisterEnemy(Enemy* newEnemy)
 	{
@@ -58,5 +68,51 @@ namespace LLGP
 				}
 			}
 		}
+	}
+
+	void EnemyManager::SpawnEnemies(int enemyAmount, int citizenAmount, int trapAmount)
+	{
+		for (int i = 0; i < enemyAmount; i++)
+		{
+			LLGP::ObjectPool::GetObject(LLGP::ObjectTypes::Enemy, GetSpawnPosition());
+		}
+
+		for (int i = 0; i < trapAmount; i++)
+		{
+			LLGP::ObjectPool::GetObject(LLGP::ObjectTypes::Trap, GetSpawnPosition());
+		}
+
+		for (int i = 0; i < citizenAmount; i++)
+		{
+			LLGP::ObjectPool::GetObject(LLGP::ObjectTypes::Citizen, GetSpawnPosition());
+		}
+
+		ScoreManager::SetLevelRequirements(enemyAmount, citizenAmount);
+
+		std::cout << "Enemy Amount: " << enemyAmount << std::endl;
+		std::cout << "Citizen Amount: " << citizenAmount << std::endl;
+	}
+
+	Vector2f EnemyManager::GetSpawnPosition()
+	{
+		while (true)
+		{
+			Vector2f spawnPos = Vector2f::zero;
+			Vector2f playerPos = Vector2f(
+				LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->transform->position.x,
+				LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->transform->position.y
+			);
+
+			spawnPos = LLGP::Vector2f(
+				rand() % LLGP::RenderingManager::GetWindow()->getSize().x,
+				rand() % LLGP::RenderingManager::GetWindow()->getSize().y
+			);
+
+			if ((spawnPos - playerPos).GetMagnitude() > 100.f)
+			{
+				return spawnPos;
+			}
+		}
+		return Vector2f::zero;
 	}
 }

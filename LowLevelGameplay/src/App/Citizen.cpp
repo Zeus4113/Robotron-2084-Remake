@@ -5,6 +5,7 @@
 #include <Core/GameObject.h>
 #include <Core/RenderingManager.h>
 #include <App/EnemyManager.h>
+#include <App/ScoreManager.h>
 
 namespace LLGP
 {
@@ -35,12 +36,18 @@ namespace LLGP
 
 	void Citizen::OnCollisionEnter(Collider* col)
 	{
-		GameObject* go = col->GetGameObject();
+		//std::cout << this->GetGameObject()->GetName() << " is touching " << col->GetGameObject()->GetName() << std::endl;
 
-		if (go->CompareType(ObjectTypes::Player)) 
+		if (col->GetGameObject()->CompareType(ObjectTypes::Player))
 		{
-			ObjectPool::ReturnObject(this->GetGameObject());
+			this->OnDead();
 		}
+	}
+
+	void Citizen::OnDead() 
+	{
+		ObjectPool::ReturnObject(this->GetGameObject());
+		ScoreManager::CitizenRescued();
 	}
 
 	void Citizen::GenerateDestination()

@@ -77,6 +77,16 @@ namespace LLGP {
 	void Character::OnCollisionEnter(Collider* col)
 	{
 		std::cout << this->GetGameObject()->GetName() << " is touching " << col->GetGameObject()->GetName() << " (ENTER)" << std::endl;
+
+		if (col->GetGameObject()->CompareType(ObjectTypes::Trap)) 
+		{
+			this->OnDead();
+		}
+		else if (col->GetGameObject()->CompareType(ObjectTypes::Enemy))
+		{
+			this->OnDead();
+		}
+
 	}
 
 	void Character::OnCollisionExit(Collider* col) 

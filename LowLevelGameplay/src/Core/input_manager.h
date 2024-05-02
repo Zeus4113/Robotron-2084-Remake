@@ -24,6 +24,7 @@ namespace LLGP
 		static Event<bool> onPause;
 
 		static bool isPressed;
+		static bool isRestartPressed;
 
 		static void CheckInput();
 	};

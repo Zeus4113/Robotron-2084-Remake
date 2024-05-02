@@ -60,4 +60,9 @@ namespace LLGP {
 
 	}
 
+	void Collider::Reset()
+	{
+		_inContactColliders.clear();
+	}
+
 }

@@ -18,6 +18,7 @@
 #include <Core/ObjectPool.h>
 #include <App/GameManager.h>
 #include <App/EnemyManager.h>
+#include <App/ScoreManager.h>
 
 #define FIXEDFRAMERATE 0.02f
 #define RECTSIZE LLGP::Vector2f::one * 25
@@ -36,6 +37,7 @@
 
 		gm->Initialise();
 		gm->SetupLevel();
+		LLGP::ScoreManager::SetGameManager(gm);
 
 		// Awake
 		LLGP::EntityManager::Awake();
@@ -63,12 +65,10 @@
 
 			if (LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetActive()) 
 			{
-				std::cout << "Player Active!" << std::endl;
 				LLGP::EnemyManager::UpdateEnemyDirection(LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetTransform()->position);
 			}
 			else
 			{
-				std::cout << "Player Not Active!" << std::endl;
 				LLGP::EnemyManager::UpdateEnemyDirection(LLGP::Vector3f::zero);
 			}
 
