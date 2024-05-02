@@ -17,6 +17,8 @@ namespace LLGP
 
 		virtual void Awake() {}
 
+		virtual void Reset(){}
+
 	protected:
 		GameObject* _GameObject;
 	};

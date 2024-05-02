@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+       #include <SFML/Graphics.hpp>
 #include <chrono>
 #include <iostream>
 
@@ -30,9 +30,16 @@
 		// Player Initialisation
 		playerCharacter->transform->position = LLGP::Vector3f(window.getSize().x / 2, window.getSize().y / 2);
 
+<<<<<<< Updated upstream
 		for (LLGP::Component* c : g_componentList) {
 			c->Awake();
 		}
+=======
+		LLGP::EnemyManager::SetGameManager(gm);
+
+		// Awake
+		LLGP::EntityManager::Awake();
+>>>>>>> Stashed changes
 
 		//TODO: Move this garbage elsewhere heathen!!
 		
@@ -72,6 +79,24 @@
 
 			LLGP::InputManager::CheckInput();
 
+<<<<<<< Updated upstream
+=======
+			// Enemies Update
+			if (LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetActive()) 
+			{
+				LLGP::EnemyManager::UpdateEnemyDirection(LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetTransform()->position);
+			}
+			else
+			{
+				LLGP::EnemyManager::UpdateEnemyDirection(LLGP::Vector3f::zero);
+			}
+
+			if ((rand() % 500) > 400) 
+			{
+				LLGP::EnemyManager::UpdateCitizenDestination();
+			}
+
+>>>>>>> Stashed changes
 			// Physics Update
 			timeSincePhysicsStep += deltaTime;
 			while (timeSincePhysicsStep > FIXEDFRAMERATE)
