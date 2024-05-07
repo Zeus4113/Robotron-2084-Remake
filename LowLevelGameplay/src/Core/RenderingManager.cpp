@@ -1,11 +1,13 @@
 #include <Core/RenderingManager.h>
 #include <Core/Sprite.h>
 #include <Core/GameObject.h>
+#include <Core/Animator.h>
 
 namespace LLGP 
 {
 	std::vector<Sprite*> RenderingManager::_Sprites;
 	sf::RenderWindow* RenderingManager::_Window;
+	std::vector<Animator*> RenderingManager::_Animators;
 
 	void RenderingManager::StartRender() 
 	{
@@ -28,9 +30,33 @@ namespace LLGP
 		}
 	}
 
-	void RenderingManager::UpdateRender()
+	void RenderingManager::RegisterAnimator(Animator* newAnimator)
+	{
+		_Animators.push_back(newAnimator);
+	}
+
+	void RenderingManager::UnregisterAnimator(Animator* oldAnimator)
+	{
+		for (int i = 0; i < _Animators.size(); ++i)
+		{
+			if (_Animators[i] == oldAnimator)
+			{
+				_Animators.erase(_Animators.begin() + i);
+			}
+		}
+	}
+
+	void RenderingManager::UpdateRender(float deltaTime)
 	{
 		_Window->clear();
+
+		for (Animator* a : _Animators)
+		{
+			if (a->GetGameObject()->GetActive())
+			{
+				a->UpdateSprite(deltaTime);
+			}
+		}
 
 		for (Sprite* s : _Sprites) 
 		{
@@ -40,6 +66,7 @@ namespace LLGP
 				_Window->draw(s->GetShape());
 			}
 		}
+
 		_Window->display();
 	}
 }

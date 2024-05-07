@@ -11,7 +11,7 @@ namespace LLGP {
 	void PhysicsManager::RegisterCollider(LLGP::Collider* newCollider) 
 	{ 
 		_Colliders.push_back(newCollider); 
-		std::cout << "New Collider Added: " << newCollider->GetGameObject()->GetName() << std::endl;
+		//std::cout << "New Collider Added: " << newCollider->GetGameObject()->GetName() << std::endl;
 	}
 
 	void PhysicsManager::UnregisterCollider(Collider* oldCollider)
@@ -28,7 +28,7 @@ namespace LLGP {
 	void PhysicsManager::RegisterRigidbody(Rigidbody* newRigidbody) 
 	{ 
 		_Rigidbodies.push_back(newRigidbody); //_Colliders.push_back(newRigidbody->GetCollider()); 
-		std::cout << "New Rigidbody Added: " << newRigidbody->GetGameObject()->GetName() << std::endl;
+		//std::cout << "New Rigidbody Added: " << newRigidbody->GetGameObject()->GetName() << std::endl;
 	}
 
 	void PhysicsManager::UnregisterRigidbody(Rigidbody* oldRigidbody)

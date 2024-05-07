@@ -100,7 +100,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Animator.h" />
+    <ClInclude Include="src\Core\MovementDirections.h" />
+    <ClInclude Include="src\Core\Animator.h" />
     <ClInclude Include="src\App\ScoreManager.h" />
     <ClInclude Include="src\App\EnemyManager.h" />
     <ClInclude Include="src\App\GameManager.h" />
@@ -130,7 +131,7 @@
     <ClInclude Include="src\App\Trap.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="src\Core\Animator.cpp" />
     <ClCompile Include="src\App\ScoreManager.cpp" />
     <ClCompile Include="src\App\EnemyManager.cpp" />
     <ClCompile Include="src\App\GameManager.cpp" />

@@ -87,7 +87,7 @@
 			}
 
 			// Render Update
-			LLGP::RenderingManager::UpdateRender();
+			LLGP::RenderingManager::UpdateRender(deltaTime);
 		}
 
 		return 0;

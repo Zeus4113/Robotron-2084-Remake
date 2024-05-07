@@ -71,8 +71,9 @@
     <ClInclude Include="src\App\Citizen.h" />
     <ClInclude Include="src\App\GameManager.h" />
     <ClInclude Include="src\App\EnemyManager.h" />
-    <ClInclude Include="Animator.h" />
+    <ClInclude Include="src\Core\Animator.h" />
     <ClInclude Include="src\App\ScoreManager.h" />
+    <ClInclude Include="src\Core\MovementDirections.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App\Character.cpp">
@@ -106,7 +107,7 @@
     <ClCompile Include="src\App\Citizen.cpp" />
     <ClCompile Include="src\App\GameManager.cpp" />
     <ClCompile Include="src\App\EnemyManager.cpp" />
-    <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="src\Core\Animator.cpp" />
     <ClCompile Include="src\App\ScoreManager.cpp" />
   </ItemGroup>
 </Project>

@@ -14,6 +14,22 @@ namespace LLGP
 		RenderingManager::UnregisterSprite(this);
 	}
 
+	void Sprite::SetTexture(std::string filePath, Vector2f spriteAmount)
+	{
+		_spriteTexture.loadFromFile(filePath); 
+		_spriteShape.setTexture(&_spriteTexture);
+		_spritesInSheet = spriteAmount;
+	}
+
+	void Sprite::UpdateTexture(int row, int collumn)
+	{
+		_spriteShape.setTextureRect(sf::IntRect(
+			(_spriteTexture.getSize().x / _spritesInSheet.x) * collumn,
+			(_spriteTexture.getSize().y / _spritesInSheet.y) * row,
+			_spriteTexture.getSize().x / _spritesInSheet.x,
+			_spriteTexture.getSize().y / _spritesInSheet.y));
+	}
+
 	void Sprite::UpdateRender()
 	{
 		_spriteShape.setPosition(_GameObject->transform->position.x, _GameObject->transform->position.y);

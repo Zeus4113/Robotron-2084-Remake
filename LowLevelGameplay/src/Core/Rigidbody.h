@@ -1,6 +1,7 @@
 #pragma once
 #include <Core/Component.h>
 #include <Core/vector2.h>
+#include <Core/MovementDirections.h>
 
 namespace LLGP {
 
@@ -13,9 +14,10 @@ namespace LLGP {
 		Rigidbody(GameObject* owner);
 		~Rigidbody();
 		
-		void SetVelocity(Vector2f newVelocity) { _Velocity = newVelocity; }
+		void SetVelocity(Vector2f newVelocity);
 		Vector2f GetVelocity() { return _Velocity;  }
 		float GetMagnitude() { return _Velocity.x * _Velocity.x + _Velocity.y * _Velocity.y; }
+		MovementDirection GetDirection() { return _direction; }
 
 		void DampenVelocity() 
 		{
@@ -59,6 +61,7 @@ namespace LLGP {
 
 	private:
 
+		MovementDirection _direction;
 		Vector2f _Velocity;
 		float _Mass;
 		Collider* _Collider;

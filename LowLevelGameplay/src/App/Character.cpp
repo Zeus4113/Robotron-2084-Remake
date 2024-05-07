@@ -8,6 +8,7 @@
 #include <Core/Sprite.h>
 #include <Core/ObjectPool.h>
 #include<Core/Event.h>
+#include <Core/Animator.h>
 
 
 namespace LLGP {
@@ -16,12 +17,16 @@ namespace LLGP {
 	{
 		// Add and Set Rigidbody Component
 		owner->AddComponent<LLGP::Rigidbody>();
-		owner->GetComponent<LLGP::Rigidbody>()->SetSize(Vector2f(25.f, 25.f) / 2.f);
+		owner->GetComponent<LLGP::Rigidbody>()->SetSize(Vector2f(25.f, 25.f) / 3.f);
 		owner->GetComponent<LLGP::Rigidbody>()->SetMass(1.f);
 
 		// Add and Set Sprite Component
 		owner->AddComponent<LLGP::Sprite>();
 		owner->GetComponent<LLGP::Sprite>()->SetSize(Vector2f(25.f, 25.f));
+		owner->GetComponent<LLGP::Sprite>()->SetTexture("images/PlayerSpriteSheet.png", Vector2f(3, 4));
+
+		owner->AddComponent<Animator>();
+		//owner->GetComponent<Animator>()->SetTexture(Vector2f(3,4));
 
 		// Bind Collider Event
 		if (owner->GetComponent<Collider>())
