@@ -12,20 +12,18 @@ namespace LLGP
 		Animator(GameObject* owner);
 		~Animator();
 
-		//void SetTexture(std::string filePath, Vector2f spriteAmount);
 		void UpdateSprite(float deltaTime);
+		void SetRow(int newRow) { _currentRow = newRow; }
+		void SetPlaying(bool isPlaying) { _isPlaying = isPlaying; }
 		
 	private:
-		sf::Texture _spriteSheet;
-		Vector2f _spritesInSheet;
-		Vector2f _sheetSize;
-		sf::IntRect _rectCutout;
-
 		float _updateTime;
 		float _frameTime = 0.1f;
 
 		int _currentRow = 0;
 		int _currentCollumn = 0;
+
+		bool _isPlaying = true;
 
 	};
 }

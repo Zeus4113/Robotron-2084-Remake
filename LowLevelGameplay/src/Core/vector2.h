@@ -144,8 +144,16 @@ namespace LLGP {
 
 	// Comparison Operators
 
+	//template<typename T> requires arithmatic<T>
+	//inline bool operator==(Vector2<T>& lhs, const Vector2<T> rhs)
+	//{
+	//	Vector2<T> dist = lhs - rhs;
+	//	float mag = dist.x * dist.x + dist.y * dist.y;
+	//	return mag < 9.99999944E-11f;
+	//}
+
 	template<typename T> requires arithmatic<T>
-	inline bool operator==(Vector2<T>& lhs, const Vector2<T> rhs)
+	inline bool operator==(Vector2<T> lhs, Vector2<T> rhs)
 	{
 		Vector2<T> dist = lhs - rhs;
 		float mag = dist.x * dist.x + dist.y * dist.y;

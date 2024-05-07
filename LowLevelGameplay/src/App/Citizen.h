@@ -14,7 +14,9 @@ namespace LLGP
 
 		void OnCollisionEnter(Collider* col);
         void OnDead();
-		void GenerateDestination();
+		void Move(Vector2f destination);
+
+		Vector2f GetDestination() { return _Destination; }
 
 	private:
 		Vector2f _Destination;

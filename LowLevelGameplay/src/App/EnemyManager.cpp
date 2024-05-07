@@ -2,6 +2,7 @@
 #include <Core/RenderingManager.h>
 #include <App/ScoreManager.h>
 #include <iostream>
+#include <Core/Rigidbody.h>
 
 namespace LLGP 
 {
@@ -51,8 +52,19 @@ namespace LLGP
 	{
 		for (Citizen* c : _Citizens)
 		{
-			if (c->GetGameObject()->GetActive()) {
-				c->GenerateDestination();
+			if (c->GetGameObject()->GetActive()) 
+			{		
+				Vector2f vec = Vector2f(c->GetDestination().x - c->GetGameObject()->transform->position.x, c->GetDestination().y - c->GetGameObject()->transform->position.y);
+				float mag = vec.GetMagnitude();
+
+				if (mag < 50.f)
+				{
+					c->Move(GetRandomPosition(false));
+				}
+				else 
+				{
+					c->Move(c->GetDestination());
+				}
 			}
 		}
 	}
@@ -74,17 +86,19 @@ namespace LLGP
 	{
 		for (int i = 0; i < enemyAmount; i++)
 		{
-			LLGP::ObjectPool::GetObject(LLGP::ObjectTypes::Enemy, GetSpawnPosition());
+			LLGP::ObjectPool::GetObject(LLGP::ObjectTypes::Enemy, GetRandomPosition(true));
 		}
 
 		for (int i = 0; i < trapAmount; i++)
 		{
-			LLGP::ObjectPool::GetObject(LLGP::ObjectTypes::Trap, GetSpawnPosition());
+			LLGP::ObjectPool::GetObject(LLGP::ObjectTypes::Trap, GetRandomPosition(true));
 		}
 
 		for (int i = 0; i < citizenAmount; i++)
 		{
-			LLGP::ObjectPool::GetObject(LLGP::ObjectTypes::Citizen, GetSpawnPosition());
+			GameObject* go = LLGP::ObjectPool::GetObject(LLGP::ObjectTypes::Citizen, GetRandomPosition(true));
+			go->GetComponent<Citizen>()->Move(GetRandomPosition(false));
+
 		}
 
 		ScoreManager::SetLevelRequirements(enemyAmount, citizenAmount);
@@ -93,11 +107,12 @@ namespace LLGP
 		std::cout << "Citizen Amount: " << citizenAmount << std::endl;
 	}
 
-	Vector2f EnemyManager::GetSpawnPosition()
+	Vector2f EnemyManager::GetRandomPosition(bool avoidPlayer)
 	{
 		while (true)
 		{
 			Vector2f spawnPos = Vector2f::zero;
+
 			Vector2f playerPos = Vector2f(
 				LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->transform->position.x,
 				LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->transform->position.y
@@ -108,7 +123,16 @@ namespace LLGP
 				rand() % LLGP::RenderingManager::GetWindow()->getSize().y
 			);
 
-			if ((spawnPos - playerPos).GetMagnitude() > 100.f)
+			//std::cout << spawnPos.x << " " << spawnPos.y << std::endl;
+
+			if (avoidPlayer) 
+			{
+				if ((spawnPos - playerPos).GetMagnitude() > 100.f)
+				{
+					return spawnPos;
+				}
+			}
+			else 
 			{
 				return spawnPos;
 			}

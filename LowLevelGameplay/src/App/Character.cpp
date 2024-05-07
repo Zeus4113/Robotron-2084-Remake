@@ -26,7 +26,8 @@ namespace LLGP {
 		owner->GetComponent<LLGP::Sprite>()->SetTexture("images/PlayerSpriteSheet.png", Vector2f(3, 4));
 
 		owner->AddComponent<Animator>();
-		//owner->GetComponent<Animator>()->SetTexture(Vector2f(3,4));
+		owner->GetComponent<Animator>()->SetPlaying(false);
+		owner->GetComponent<Animator>()->SetRow(2);
 
 		// Bind Collider Event
 		if (owner->GetComponent<Collider>())
@@ -42,6 +43,33 @@ namespace LLGP {
 		if (this->GetGameObject()->GetActive()) 
 		{
 			Component::GetGameObject()->GetComponent<Rigidbody>()->SetVelocity(movementValue * 3);
+
+			if (movementValue == Vector2f::zero) 
+			{
+				this->GetGameObject()->GetComponent<Animator>()->SetPlaying(false);
+			}
+			else 
+			{
+				this->GetGameObject()->GetComponent<Animator>()->SetPlaying(true);
+
+				if (movementValue.x > 0) 
+				{
+					this->GetGameObject()->GetComponent<Animator>()->SetRow(MovementDirection::Right);
+				}
+				else if (movementValue.x < 0) 
+				{
+					this->GetGameObject()->GetComponent<Animator>()->SetRow(MovementDirection::Left);
+				}
+
+				if (movementValue.y > 0)
+				{
+					this->GetGameObject()->GetComponent<Animator>()->SetRow(MovementDirection::Up);
+				}
+				else if (movementValue.y < 0)
+				{
+					this->GetGameObject()->GetComponent<Animator>()->SetRow(MovementDirection::Down);
+				}
+			}
 		}
 	}
 

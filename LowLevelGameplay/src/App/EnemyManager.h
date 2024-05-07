@@ -25,7 +25,7 @@ namespace LLGP
 
 		static void SpawnEnemies(int enemyAmount, int citizenAmount, int trapAmount);
 
-		static Vector2f GetSpawnPosition();
+		static Vector2f GetRandomPosition(bool avoidPlayer);
 
 		static void UpdateCitizenDestination();
 
