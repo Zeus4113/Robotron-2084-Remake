@@ -37,7 +37,6 @@
 
 		gm->Initialise();
 		gm->SetupLevel();
-		LLGP::ScoreManager::SetGameManager(gm);
 
 		// Awake
 		LLGP::EntityManager::Awake();
@@ -65,16 +64,12 @@
 
 			if (LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetActive()) 
 			{
-				LLGP::EnemyManager::UpdateEnemyDirection(LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetTransform()->position);
+				gm->GetEnemyManager()->UpdateEnemyDirection(LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetTransform()->position);
+				gm->GetEnemyManager()->UpdateCitizenDestination();
 			}
 			else
 			{
-				LLGP::EnemyManager::UpdateEnemyDirection(LLGP::Vector3f::zero);
-			}
-
-			if ((rand() % 500) > 400) 
-			{
-				LLGP::EnemyManager::UpdateCitizenDestination();
+				gm->GetEnemyManager()->UpdateEnemyDirection(LLGP::Vector3f::zero);
 			}
 
 			// Physics Update

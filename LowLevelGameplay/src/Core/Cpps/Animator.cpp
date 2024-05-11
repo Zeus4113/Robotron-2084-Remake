@@ -1,6 +1,6 @@
-#include "Animator.h"
-#include "Core/GameObject.h"
-#include "Core/Rigidbody.h"
+#include <Core/Animator.h>
+#include <Core/GameObject.h>
+#include <Core/Rigidbody.h>
 #include <Core/MovementDirections.h>
 #include <Core/Sprite.h>
 #include <Core/RenderingManager.h>

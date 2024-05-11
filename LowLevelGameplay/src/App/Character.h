@@ -1,6 +1,7 @@
 #pragma once
 #include<Core/Component.h>
 #include<Core/vector2.h>
+#include <Core/Event.h>
 
 namespace LLGP 
 {
@@ -22,6 +23,8 @@ namespace LLGP
 		void OnCollisionStay(Collider* col);
 
 		void OnDead();
+
+		Event<int> onPlayerDead;
 
 	private:
 		float _MovementSpeed = 0.025f;

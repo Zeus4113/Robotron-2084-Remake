@@ -1,51 +1,33 @@
-#include "EnemyManager.h"
+#include <App/EnemyManager.h>
 #include <Core/RenderingManager.h>
 #include <App/ScoreManager.h>
 #include <iostream>
 #include <Core/Rigidbody.h>
+#include <Core/ObjectPool.h>
+#include <Core/GameObject.h>
+#include <App/GameManager.h>
 
 namespace LLGP 
 {
-	std::vector<Enemy*> EnemyManager::_Enemies;
-	std::vector<Citizen*> EnemyManager::_Citizens;
 
-	GameManager* EnemyManager::_gm;
-
-	void EnemyManager::SetGameManager(GameManager* gm)
+	void EnemyManager::SetupManager(GameManager* gm)
 	{
 		_gm = gm;
-	}
 
-	void EnemyManager::RegisterEnemy(Enemy* newEnemy)
-	{
-		_Enemies.push_back(newEnemy);
-	}
+		std::vector<GameObject*> EnemyObjects = ObjectPool::GetAllObjectsOfType(ObjectTypes::Enemy);
 
-	void EnemyManager::UnregisterEnemy(Enemy* oldEnemy)
-	{
-		for (int i = 0; i < _Enemies.size(); ++i)
+		for (GameObject* o : EnemyObjects) 
 		{
-			if (_Enemies[i] == oldEnemy)
-			{
-				_Enemies.erase(_Enemies.begin() + i);
-			}
+			_Enemies.push_back(o->GetComponent<Enemy>());
 		}
-	}
 
-	void EnemyManager::RegisterCitizen(Citizen* newCitizen)
-	{
-		_Citizens.push_back(newCitizen);
-	}
+		std::vector<GameObject*> CitizenObjects = ObjectPool::GetAllObjectsOfType(ObjectTypes::Citizen);
 
-	void EnemyManager::UnregisterCitizen(Citizen* oldCitizen)
-	{
-		for (int i = 0; i < _Citizens.size(); ++i)
+		for (GameObject* o : CitizenObjects)
 		{
-			if (_Citizens[i] == oldCitizen)
-			{
-				_Citizens.erase(_Citizens.begin() + i);
-			}
+			_Citizens.push_back(o->GetComponent<Citizen>());
 		}
+
 	}
 
 	void EnemyManager::UpdateCitizenDestination()
@@ -101,7 +83,7 @@ namespace LLGP
 
 		}
 
-		ScoreManager::SetLevelRequirements(enemyAmount, citizenAmount);
+		_gm->GetScoreManager()->SetLevelRequirements(enemyAmount, citizenAmount);
 
 		std::cout << "Enemy Amount: " << enemyAmount << std::endl;
 		std::cout << "Citizen Amount: " << citizenAmount << std::endl;

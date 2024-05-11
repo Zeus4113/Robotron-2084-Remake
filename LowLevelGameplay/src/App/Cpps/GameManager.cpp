@@ -1,5 +1,6 @@
-#include "GameManager.h"
+#include <App/GameManager.h>
 #include <App/EnemyManager.h>
+#include <App/ScoreManager.h>
 
 namespace LLGP 
 {
@@ -12,6 +13,13 @@ namespace LLGP
 		ObjectPool::AddObject(LLGP::ObjectTypes::Citizen, 50);
 
 		InputManager::onRestart += std::bind(&GameManager::RestartGame, this, std::placeholders::_1);
+
+		sm = new ScoreManager();
+		sm->SetupManager(this);
+
+		em = new EnemyManager();
+		em->SetupManager(this);
+
 	}
 
 	void GameManager::SetupLevel()
@@ -76,7 +84,7 @@ namespace LLGP
 			LLGP::RenderingManager::GetWindow()->getSize().y / 2
 		));
 		
-		EnemyManager::SpawnEnemies(_difficultyLevel * _enemyMultiplier, _difficultyLevel * _citizenMultiplier, _difficultyLevel * _trapMultiplier);
+		em->SpawnEnemies(_difficultyLevel * _enemyMultiplier, _difficultyLevel * _citizenMultiplier, _difficultyLevel * _trapMultiplier);
 	}
 
 	void GameManager::NextLevel() 
@@ -86,10 +94,27 @@ namespace LLGP
 		StartGame();
 	}
 
+	void GameManager::RestartLevel() 
+	{
+		ObjectPool::ReturnAllObjects();
+		StartGame();
+	}
+
 	void GameManager::RestartGame(bool isTrue)
 	{
 		ObjectPool::ReturnAllObjects();
 		_difficultyLevel = 1;
+		sm->SetLives(3);
 		StartGame();
+	}
+
+    ScoreManager* GameManager::GetScoreManager()
+    {
+        return sm;
+    }
+
+	EnemyManager* GameManager::GetEnemyManager() 
+	{
+		return em;
 	}
 }

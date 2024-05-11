@@ -17,13 +17,13 @@ namespace LLGP {
 	{
 		// Add and Set Rigidbody Component
 		owner->AddComponent<LLGP::Rigidbody>();
-		owner->GetComponent<LLGP::Rigidbody>()->SetSize(Vector2f(25.f, 25.f) / 3.f);
+		owner->GetComponent<LLGP::Rigidbody>()->SetSize(Vector2f(40.f, 40.f) / 3.f);
 		owner->GetComponent<LLGP::Rigidbody>()->SetMass(1.f);
 
 		// Add and Set Sprite Component
 		owner->AddComponent<LLGP::Sprite>();
-		owner->GetComponent<LLGP::Sprite>()->SetSize(Vector2f(25.f, 25.f));
-		owner->GetComponent<LLGP::Sprite>()->SetTexture("images/PlayerSpriteSheet.png", Vector2f(3, 4));
+		owner->GetComponent<LLGP::Sprite>()->SetSize(Vector2f(40.f, 40.f));
+		owner->GetComponent<LLGP::Sprite>()->SetTexture("images/Player.png", Vector2f(3, 4));
 
 		owner->AddComponent<Animator>();
 		owner->GetComponent<Animator>()->SetPlaying(false);
@@ -135,5 +135,6 @@ namespace LLGP {
 	{
 		this->GetGameObject()->GetComponent<Rigidbody>()->SetVelocity(Vector2f(0, 0));
 		ObjectPool::ReturnObject(this->GetGameObject());
+		onPlayerDead.Invoke(1);
 	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <Core/Text.h>
 
 namespace LLGP 
 {
@@ -20,6 +21,9 @@ namespace LLGP
 		static void RegisterAnimator(Animator* newAnimator);
 		static void UnregisterAnimator(Animator* oldAnimator);
 
+		static void RegisterText(Text* newText);
+		static void UnregisterText(Text* oldText);
+
 		static void StartRender();
 		static void UpdateRender(float deltaTime);
 
@@ -28,6 +32,8 @@ namespace LLGP
 	private:
 		static std::vector<Sprite*> _Sprites;
 		static std::vector<Animator*> _Animators;
+		static std::vector<Text*> _Texts;
+
 		static sf::RenderWindow* _Window;
 	};
 }

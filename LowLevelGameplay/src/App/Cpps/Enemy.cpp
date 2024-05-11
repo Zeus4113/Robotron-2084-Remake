@@ -1,4 +1,4 @@
-#include "Enemy.h"
+#include <App/Enemy.h>
 #include<Core/Rigidbody.h>
 #include<Core/Sprite.h>
 #include <Core/Collider.h>
@@ -13,17 +13,16 @@ namespace LLGP
 {
 	Enemy::Enemy(GameObject* owner) : Component(owner)
 	{
-		EnemyManager::RegisterEnemy(this);
 
 		// Add and Set Rigidbody Component
 		owner->AddComponent<LLGP::Rigidbody>();
-		owner->GetComponent<LLGP::Rigidbody>()->SetSize(Vector2f(25.f, 25.f) / 2.f);
+		owner->GetComponent<LLGP::Rigidbody>()->SetSize(Vector2f(40.f, 40.f) / 3.);
 		owner->GetComponent<LLGP::Rigidbody>()->SetMass(1.f);
 
 		// Add and Set Sprite Component
 		owner->AddComponent<LLGP::Sprite>();
-		owner->GetComponent<LLGP::Sprite>()->SetSize(Vector2f(25.f, 25.f));
-		owner->GetComponent<LLGP::Sprite>()->SetTexture("images/EnemySpriteSheet.png", Vector2f(3, 1));
+		owner->GetComponent<LLGP::Sprite>()->SetSize(Vector2f(40.f, 40.f));
+		owner->GetComponent<LLGP::Sprite>()->SetTexture("images/Enemy.png", Vector2f(3, 1));
 
 		owner->AddComponent<Animator>();
 		owner->GetComponent<Animator>()->SetPlaying(true);
@@ -36,7 +35,7 @@ namespace LLGP
 
 	Enemy::~Enemy()
 	{
-		EnemyManager::UnregisterEnemy(this);
+
 	}
 
 	void Enemy::Move(Vector2f playerPos)
@@ -65,7 +64,8 @@ namespace LLGP
 	{
 		this->GetGameObject()->GetComponent<Rigidbody>()->SetVelocity(Vector2f(0, 0));
 		ObjectPool::ReturnObject(this->GetGameObject());
-		ScoreManager::EnemyKilled();
+		//ScoreManager::EnemyKilled();
+		OnEnemyDead.Invoke(1);
 	}
 
 }

@@ -1,4 +1,4 @@
-#include "Citizen.h"
+#include <App/Citizen.h>
 #include <Core/Rigidbody.h>
 #include <Core/Sprite.h>
 #include <Core/Collider.h>
@@ -14,13 +14,13 @@ namespace LLGP
 	{
 		// Add and Set Rigidbody Component
 		owner->AddComponent<Rigidbody>();
-		owner->GetComponent<Rigidbody>()->SetSize(Vector2f(25.f, 25.f) / 2.f);
+		owner->GetComponent<Rigidbody>()->SetSize(Vector2f(40.f, 40.f) / 2.f);
 		owner->GetComponent<Rigidbody>()->SetMass(1.f);
 
 		// Add and Set Sprite Component
 		owner->AddComponent<Sprite>();
-		owner->GetComponent<Sprite>()->SetSize(Vector2f(25.f, 25.f));
-		owner->GetComponent<LLGP::Sprite>()->SetTexture("images/CitizenSpriteSheet.png", Vector2f(3, 4));
+		owner->GetComponent<Sprite>()->SetSize(Vector2f(40.f, 40.f));
+		owner->GetComponent<LLGP::Sprite>()->SetTexture("images/Citizen.png", Vector2f(3, 4));
 
 		owner->AddComponent<Animator>();
 		owner->GetComponent<Animator>()->SetPlaying(false);
@@ -31,12 +31,11 @@ namespace LLGP
 			owner->GetComponent<Collider>()->onCollisionEnter += std::bind(&Citizen::OnCollisionEnter, this, std::placeholders::_1);
 		}
 
-		EnemyManager::RegisterCitizen(this);
 	}
 
 	Citizen::~Citizen()
 	{
-		EnemyManager::UnregisterCitizen(this);
+
 	}
 
 	void Citizen::OnCollisionEnter(Collider* col)
@@ -47,16 +46,12 @@ namespace LLGP
 		{
 			this->OnDead();
 		}
-		else 
-		{
-			_Destination = EnemyManager::GetRandomPosition(false);
-		}
 	}
 
 	void Citizen::OnDead() 
 	{
 		ObjectPool::ReturnObject(this->GetGameObject());
-		ScoreManager::CitizenRescued();
+		OnCitizenRescued(1);
 	}
 
 	void Citizen::Move(Vector2f destination) 

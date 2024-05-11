@@ -5,34 +5,26 @@ namespace LLGP
 {
 	class GameManager;
 
-	static class EnemyManager
+	class EnemyManager
 	{
 	public:
 		EnemyManager() {}
 		~EnemyManager() {}
 
-		static void SetGameManager(GameManager* gm);
+		void SetupManager(GameManager* gm);
 
-		static void RegisterEnemy(Enemy* newEnemy);
+		void UpdateEnemyDirection(Vector3f playerPos);
 
-		static void UnregisterEnemy(Enemy* oldEnemy);
+		void SpawnEnemies(int enemyAmount, int citizenAmount, int trapAmount);
 
-		static void RegisterCitizen(Citizen* newCitizen);
+		Vector2f GetRandomPosition(bool avoidPlayer);
 
-		static void UnregisterCitizen(Citizen* oldCitizen);
-
-		static void UpdateEnemyDirection(Vector3f playerPos);
-
-		static void SpawnEnemies(int enemyAmount, int citizenAmount, int trapAmount);
-
-		static Vector2f GetRandomPosition(bool avoidPlayer);
-
-		static void UpdateCitizenDestination();
+		void UpdateCitizenDestination();
 
 	private:
-		static std::vector<Enemy*> _Enemies;
-		static std::vector<Citizen*> _Citizens;
-		static GameManager* _gm;
+		std::vector<Enemy*> _Enemies;
+		std::vector<Citizen*> _Citizens;
+		GameManager* _gm;
 	};
 }
 

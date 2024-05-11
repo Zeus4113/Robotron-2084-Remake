@@ -5,6 +5,9 @@
 
 namespace LLGP 
 {
+	class ScoreManager;
+
+	class GameManager;
 
 	static class ObjectPool
 	{
@@ -12,7 +15,9 @@ namespace LLGP
 		ObjectPool() {}
 		~ObjectPool() {}
 
-		static void AddObject(ObjectTypes objectType, int objectAmount);
+		static std::vector<GameObject*> GetAllObjectsOfType(ObjectTypes objectType);
+
+        static void AddObject(ObjectTypes objectType, int objectAmount);
 
 		static void ReturnObject(GameObject* objectToReturn);
 		static void ReturnAllObjects();

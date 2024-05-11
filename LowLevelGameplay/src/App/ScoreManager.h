@@ -1,31 +1,42 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 
 namespace LLGP 
 {
 
 	class GameManager;
 
-	static class ScoreManager
+	class ScoreManager
 	{
 	public:
 		ScoreManager() {}
 		~ScoreManager() {}
 
-		static void SetGameManager(GameManager* gm);
+		void SetupManager(GameManager* gm);
 
-		static void EnemyKilled();
+		void SetLives(int newLives);
 
-		static void CitizenRescued();
+		void EnemyKilled(int eventInput);
 
-		static void SetLevelRequirements(int enemyAmount, int citizenAmount);
+		void CitizenRescued(int eventInput);
 
-		static void CheckConditions();
+		void PlayerDied(int eventInput);
+
+		void SetLevelRequirements(int enemyAmount, int citizenAmount);
+
+		void CheckConditions();
 
 	private:
-		static int _enemiesToKill;
-		static int _citizensToRescue;
+		int _enemiesToKill;
+		int _citizensToRescue;
 
-		static GameManager* _gm;
+		int _currentScore = 0;
+		int _livesRemaining = 3;
+
+		const int _scorePerEnemy = 200;
+		const int _scorePerCitizen = 150;
+
+		GameManager* _gm;
 	};
 }
 

@@ -1,4 +1,4 @@
-#include "Trap.h"
+#include <App/Trap.h>
 #include <Core/GameObject.h>
 #include <Core/Sprite.h>
 #include <Core/Collider.h>

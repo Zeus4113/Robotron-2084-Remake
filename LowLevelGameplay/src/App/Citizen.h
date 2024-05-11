@@ -1,6 +1,7 @@
 #pragma once
 #include<Core/Component.h>
 #include <Core/vector2.h>
+#include <Core/Event.h>
 
 namespace LLGP
 {
@@ -17,6 +18,8 @@ namespace LLGP
 		void Move(Vector2f destination);
 
 		Vector2f GetDestination() { return _Destination; }
+
+		Event<int> OnCitizenRescued;
 
 	private:
 		Vector2f _Destination;

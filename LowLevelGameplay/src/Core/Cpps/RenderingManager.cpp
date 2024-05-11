@@ -2,12 +2,14 @@
 #include <Core/Sprite.h>
 #include <Core/GameObject.h>
 #include <Core/Animator.h>
+#include <Core/Text.h>
 
 namespace LLGP 
 {
 	std::vector<Sprite*> RenderingManager::_Sprites;
 	sf::RenderWindow* RenderingManager::_Window;
 	std::vector<Animator*> RenderingManager::_Animators;
+	std::vector<Text*> RenderingManager::_Texts;
 
 	void RenderingManager::StartRender() 
 	{
@@ -46,6 +48,22 @@ namespace LLGP
 		}
 	}
 
+	void RenderingManager::RegisterText(Text* newText)
+	{
+		_Texts.push_back(newText);
+	}
+
+	void RenderingManager::UnregisterText(Text* oldText)
+	{
+		for (int i = 0; i < _Texts.size(); ++i)
+		{
+			if (_Texts[i] == oldText)
+			{
+				_Texts.erase(_Texts.begin() + i);
+			}
+		}
+	}
+
 	void RenderingManager::UpdateRender(float deltaTime)
 	{
 		_Window->clear();
@@ -64,6 +82,15 @@ namespace LLGP
 			{
 				s->UpdateRender();
 				_Window->draw(s->GetShape());
+			}
+		}
+
+
+		for (Text* t : _Texts)
+		{
+			if (t != nullptr) 
+			{
+				//_Window->draw(t->GetText());
 			}
 		}
 

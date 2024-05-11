@@ -74,40 +74,46 @@
     <ClInclude Include="src\Core\Animator.h" />
     <ClInclude Include="src\App\ScoreManager.h" />
     <ClInclude Include="src\Core\MovementDirections.h" />
+    <ClInclude Include="src\Core\Text.h" />
+    <ClInclude Include="src\Core\AssetManager.h" />
+    <ClInclude Include="src\Core\Font.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\App\Character.cpp">
+    <ClCompile Include="src\App\Cpps\Character.cpp">
       <Filter>Sources\App</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\Collider.cpp">
+    <ClCompile Include="src\Core\Cpps\Collider.cpp">
       <Filter>Sources\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\Component.cpp">
+    <ClCompile Include="src\Core\Cpps\Component.cpp">
       <Filter>Sources\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\GameObject.cpp">
+    <ClCompile Include="src\Core\Cpps\GameObject.cpp">
       <Filter>Sources\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\UUID.cpp">
+    <ClCompile Include="src\Core\Cpps\UUID.cpp">
       <Filter>Sources\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\main.cpp">
+    <ClCompile Include="src\Core\Cpps\main.cpp">
       <Filter>Sources\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\input_manager.cpp" />
-    <ClCompile Include="src\Core\PhysicsManager.cpp" />
-    <ClCompile Include="src\Core\Rigidbody.cpp" />
-    <ClCompile Include="src\Core\EntityManager.cpp" />
-    <ClCompile Include="src\Core\RenderingManager.cpp" />
-    <ClCompile Include="src\Core\Sprite.cpp" />
-    <ClCompile Include="src\App\Bullet.cpp" />
-    <ClCompile Include="src\Core\ObjectPool.cpp" />
-    <ClCompile Include="src\App\Enemy.cpp" />
-    <ClCompile Include="src\App\Trap.cpp" />
-    <ClCompile Include="src\App\Citizen.cpp" />
-    <ClCompile Include="src\App\GameManager.cpp" />
-    <ClCompile Include="src\App\EnemyManager.cpp" />
-    <ClCompile Include="src\Core\Animator.cpp" />
-    <ClCompile Include="src\App\ScoreManager.cpp" />
+    <ClCompile Include="src\Core\Cpps\input_manager.cpp" />
+    <ClCompile Include="src\Core\Cpps\PhysicsManager.cpp" />
+    <ClCompile Include="src\Core\Cpps\Rigidbody.cpp" />
+    <ClCompile Include="src\Core\Cpps\EntityManager.cpp" />
+    <ClCompile Include="src\Core\Cpps\RenderingManager.cpp" />
+    <ClCompile Include="src\Core\Cpps\Sprite.cpp" />
+    <ClCompile Include="src\App\Cpps\Bullet.cpp" />
+    <ClCompile Include="src\Core\Cpps\ObjectPool.cpp" />
+    <ClCompile Include="src\App\Cpps\Enemy.cpp" />
+    <ClCompile Include="src\App\Cpps\Trap.cpp" />
+    <ClCompile Include="src\App\Cpps\Citizen.cpp" />
+    <ClCompile Include="src\App\Cpps\GameManager.cpp" />
+    <ClCompile Include="src\App\Cpps\EnemyManager.cpp" />
+    <ClCompile Include="src\Core\Cpps\Animator.cpp" />
+    <ClCompile Include="src\App\Cpps\ScoreManager.cpp" />
+    <ClCompile Include="src\Core\Cpps\Text.cpp" />
+    <ClCompile Include="src\Core\Asset.h" />
+    <ClCompile Include="src\Core\Cpps\Font.cpp" />
   </ItemGroup>
 </Project>

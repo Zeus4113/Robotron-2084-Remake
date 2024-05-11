@@ -1,14 +1,31 @@
-#include "ObjectPool.h"
+#include <Core/ObjectPool.h>
 #include <iostream>
 #include <Core/ObjectTypes.h>
 #include <Core/GameObject.h>
 #include <Core/Collider.h>
+#include <App/ScoreManager.h>
+#include <App/GameManager.h>
 
 namespace LLGP 
 {
 
 	std::vector<GameObject*> ObjectPool::_PooledObjects;
 	std::vector<GameObject*> ObjectPool::_InUseObjects;
+
+	std::vector<GameObject*> ObjectPool::GetAllObjectsOfType(ObjectTypes objectType) 
+	{
+		std::vector<GameObject*> objectsToReturn;
+
+		for (GameObject* o : _PooledObjects)
+		{
+			if (o->CompareType(objectType)) 
+			{
+				objectsToReturn.push_back(o);
+			}
+		}
+
+		return objectsToReturn;
+	}
 
 	void ObjectPool::AddObject(ObjectTypes objectType, int objectAmount)
 	{
