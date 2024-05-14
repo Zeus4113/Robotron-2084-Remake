@@ -2,9 +2,11 @@
 #include <Core/Component.h>
 #include <Core/vector2.h>
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 namespace LLGP 
 {
+	class Font;
 
 	class Text : public Component
 	{
@@ -22,6 +24,7 @@ namespace LLGP
 
 	private:
 		sf::Text _text;
+		std::shared_ptr<LLGP::Font> _font;
 	};
 }
 

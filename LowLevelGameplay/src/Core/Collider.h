@@ -23,6 +23,8 @@ namespace LLGP {
 		Event<Collider*> onCollisionStay;
 		Event<Collider*> onCollisionExit;
 
+		bool _isSolid = true;
+
 	private:
 		bool _isColliding = false;
 		Vector2f _size;

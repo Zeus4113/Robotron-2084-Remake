@@ -90,7 +90,7 @@ namespace LLGP
 		{
 			if (t != nullptr) 
 			{
-				//_Window->draw(t->GetText());
+				_Window->draw(t->GetText());
 			}
 		}
 

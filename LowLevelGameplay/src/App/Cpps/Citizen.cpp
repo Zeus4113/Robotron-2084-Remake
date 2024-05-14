@@ -20,7 +20,17 @@ namespace LLGP
 		// Add and Set Sprite Component
 		owner->AddComponent<Sprite>();
 		owner->GetComponent<Sprite>()->SetSize(Vector2f(40.f, 40.f));
-		owner->GetComponent<LLGP::Sprite>()->SetTexture("images/Citizen.png", Vector2f(3, 4));
+
+		switch (rand() % 2) {
+		case 0:
+			owner->GetComponent<LLGP::Sprite>()->SetTexture("images/CitizenMale.png", Vector2f(3, 4));
+			break;
+		case 1:
+			owner->GetComponent<LLGP::Sprite>()->SetTexture("images/CitizenFemale.png", Vector2f(3, 4));
+			break;
+		default:
+			break;
+		}
 
 		owner->AddComponent<Animator>();
 		owner->GetComponent<Animator>()->SetPlaying(false);

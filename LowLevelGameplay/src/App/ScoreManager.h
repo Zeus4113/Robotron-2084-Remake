@@ -1,8 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <Core/Text.h>
 
 namespace LLGP 
 {
+	class GameObject;
 
 	class GameManager;
 
@@ -26,6 +28,8 @@ namespace LLGP
 
 		void CheckConditions();
 
+		void SetScore(int newScore);
+
 	private:
 		int _enemiesToKill;
 		int _citizensToRescue;
@@ -36,6 +40,10 @@ namespace LLGP
 		const int _scorePerEnemy = 200;
 		const int _scorePerCitizen = 150;
 
+		GameObject* _scoreReadout;
+
+		GameObject* _livesReadout;
+		
 		GameManager* _gm;
 	};
 }

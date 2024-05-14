@@ -105,6 +105,7 @@ namespace LLGP
 		ObjectPool::ReturnAllObjects();
 		_difficultyLevel = 1;
 		sm->SetLives(3);
+		sm->SetScore(0);
 		StartGame();
 	}
 

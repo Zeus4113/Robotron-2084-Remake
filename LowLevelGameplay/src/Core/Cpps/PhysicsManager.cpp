@@ -118,6 +118,8 @@ namespace LLGP {
 
 	void PhysicsManager::ResolveCollision(Collider* collider, Collider* collider2) {
 
+		if (!collider->_isSolid) return;
+
 		if (collider == nullptr || collider2 == nullptr) return;
 
 		Rigidbody* rigidbody = nullptr;

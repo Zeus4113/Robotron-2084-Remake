@@ -3,6 +3,7 @@
 #include <Core/Sprite.h>
 #include <Core/Collider.h>
 #include <Core/Event.h>
+#include <Core/Animator.h>
 
 namespace LLGP 
 {
@@ -14,12 +15,16 @@ namespace LLGP
 
 		// Add and Set Sprite Component
 		owner->AddComponent<LLGP::Sprite>();
-		owner->GetComponent<LLGP::Sprite>()->SetSize(Vector2f(25.f, 25.f));
-		owner->GetComponent<LLGP::Sprite>()->SetColor(sf::Color::Yellow);
+		owner->GetComponent<LLGP::Sprite>()->SetSize(Vector2f(50.f, 50.f));
+		owner->GetComponent<LLGP::Sprite>()->SetTexture("images/Electrode.png", Vector2f(3, 1));
+
+		owner->AddComponent<Animator>();
+		owner->GetComponent<Animator>()->SetPlaying(true);
 
 		if (owner->GetComponent<Collider>())
 		{
 			owner->GetComponent<Collider>()->onCollisionEnter += std::bind(&Trap::OnCollisionEnter, this, std::placeholders::_1);
+			owner->GetComponent<Collider>()->_isSolid = false;
 		}
 	}
 
