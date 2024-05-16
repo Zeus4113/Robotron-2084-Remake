@@ -4,6 +4,7 @@
 #include <Core/Sprite.h>
 #include <Core/GameObject.h>
 #include <Core/ObjectPool.h>
+#include <Core/Animator.h>
 
 namespace LLGP
 {
@@ -13,11 +14,15 @@ namespace LLGP
 		owner->AddComponent<LLGP::Rigidbody>();
 		owner->GetComponent<LLGP::Rigidbody>()->SetDrag(0);
 		owner->GetComponent<LLGP::Rigidbody>()->SetMass(1);
-		owner->GetComponent<LLGP::Rigidbody>()->SetSize(LLGP::Vector2f::one * 6.25f);
+		owner->GetComponent<LLGP::Rigidbody>()->SetSize(Vector2f(30.f, 30.f) / 3);
 
 		// Add and set sprite component
 		owner->AddComponent<LLGP::Sprite>();
-		owner->GetComponent<LLGP::Sprite>()->SetSize(LLGP::Vector2f::one * 12.5f);
+		owner->GetComponent<LLGP::Sprite>()->SetSize(Vector2f(30.f, 30.f));
+		owner->GetComponent<LLGP::Sprite>()->SetTexture("images/Bullet.png", Vector2f(2, 1));
+
+		owner->AddComponent<Animator>();
+		owner->GetComponent<Animator>()->SetPlaying(true);
 
 		// Bind Collider Event
 		if (owner->GetComponent<Collider>())

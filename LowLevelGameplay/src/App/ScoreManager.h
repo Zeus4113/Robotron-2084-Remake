@@ -22,6 +22,8 @@ namespace LLGP
 
 		void CitizenRescued(int eventInput);
 
+		void CitizenCaptured(int eventInput);
+
 		void PlayerDied(int eventInput);
 
 		void SetLevelRequirements(int enemyAmount, int citizenAmount);

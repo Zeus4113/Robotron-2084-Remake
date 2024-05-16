@@ -64,12 +64,18 @@
 
 			if (LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetActive()) 
 			{
-				gm->GetEnemyManager()->UpdateEnemyDirection(LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetTransform()->position);
+				LLGP::Vector2f pos = LLGP::Vector2f(
+					LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetTransform()->position.x, 
+					LLGP::ObjectPool::GetObjectRef(LLGP::ObjectTypes::Player)->GetTransform()->position.y
+				);
+
+				gm->GetEnemyManager()->UpdateEnemyDirection(pos);
 				gm->GetEnemyManager()->UpdateCitizenDestination();
+				gm->GetEnemyManager()->UpdateHulkDirection(pos);
 			}
 			else
 			{
-				gm->GetEnemyManager()->UpdateEnemyDirection(LLGP::Vector3f::zero);
+				gm->GetEnemyManager()->UpdateEnemyDirection(LLGP::Vector2f::zero);
 			}
 
 			// Physics Update

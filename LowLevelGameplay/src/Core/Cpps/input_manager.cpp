@@ -27,6 +27,11 @@ namespace LLGP {
 			sf::Keyboard::isKeyPressed(sf::Keyboard::S) - sf::Keyboard::isKeyPressed(sf::Keyboard::W)
 		);
 
+		if (movementVector != Vector2f::zero) 
+		{
+			movementVector = movementVector.Normalise();
+		}
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) 
 		{
 			if (!isRestartPressed) 
@@ -62,6 +67,11 @@ namespace LLGP {
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Right) - sf::Keyboard::isKeyPressed(sf::Keyboard::Left),
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Down) - sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
 		);
+
+		if (shootingVector != Vector2f::zero)
+		{
+			shootingVector = shootingVector.Normalise();
+		}
 
 		if (shootingVector != shootingVectorObserver) {
 

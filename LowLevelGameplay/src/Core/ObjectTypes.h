@@ -4,6 +4,7 @@
 #include <App/Enemy.h>
 #include <App/Trap.h>
 #include <App/Citizen.h>
+#include <App/EnemyHulk.h>
 
 namespace LLGP
 {
@@ -12,6 +13,7 @@ namespace LLGP
 		Player,
 		Bullet,
 		Enemy,
+		EnemyHulk,
 		Citizen,
 		Trap
 	};

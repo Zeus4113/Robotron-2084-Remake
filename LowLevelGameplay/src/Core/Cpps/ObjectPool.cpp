@@ -62,6 +62,10 @@ namespace LLGP
 				newObject->AddComponent<Citizen>();
 				newObject->SetName("Citizen");
 				break;
+			case ObjectTypes::EnemyHulk:
+				newObject->AddComponent<EnemyHulk>();
+				newObject->SetName("Enemy Hulk");
+				break;
 			}
 
 			_PooledObjects.push_back(newObject);

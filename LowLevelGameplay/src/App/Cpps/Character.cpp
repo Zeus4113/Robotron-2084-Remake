@@ -42,6 +42,8 @@ namespace LLGP {
 	{
 		if (this->GetGameObject()->GetActive()) 
 		{
+			//Vector2f norm = movementValue.Normalise();
+
 			Component::GetGameObject()->GetComponent<Rigidbody>()->SetVelocity(movementValue * 3);
 
 			if (movementValue == Vector2f::zero) 
@@ -77,6 +79,7 @@ namespace LLGP {
 	{
 		if (this->GetGameObject()->GetActive()) 
 		{
+			//Vector2f norm = shootingValue.Normalise();
 			_AimVector = shootingValue;
 		}
 	}
@@ -116,6 +119,10 @@ namespace LLGP {
 			this->OnDead();
 		}
 		else if (col->GetGameObject()->CompareType(ObjectTypes::Enemy))
+		{
+			this->OnDead();
+		}
+		else if (col->GetGameObject()->CompareType(ObjectTypes::EnemyHulk))
 		{
 			this->OnDead();
 		}

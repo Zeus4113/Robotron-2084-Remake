@@ -14,12 +14,14 @@ namespace LLGP
 		~Citizen();
 
 		void OnCollisionEnter(Collider* col);
+        void OnRescued();
         void OnDead();
 		void Move(Vector2f destination);
 
 		Vector2f GetDestination() { return _Destination; }
 
 		Event<int> OnCitizenRescued;
+		Event<int> OnCitizenCaptured;
 
 	private:
 		Vector2f _Destination;

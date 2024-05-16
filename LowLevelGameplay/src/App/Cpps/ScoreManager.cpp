@@ -30,6 +30,7 @@ namespace LLGP
 		for (GameObject* o : citizenObjects)
 		{
 			o->GetComponent<Citizen>()->OnCitizenRescued += std::bind(&ScoreManager::CitizenRescued, this, std::placeholders::_1);
+			o->GetComponent<Citizen>()->OnCitizenCaptured += std::bind(&ScoreManager::CitizenCaptured, this, std::placeholders::_1);
 		}
 
 		GameObject* object = ObjectPool::GetObjectRef(ObjectTypes::Player);
@@ -42,12 +43,12 @@ namespace LLGP
 		this->SetScore(0);
 		textComp->SetString("Score: 0");
 		textComp->SetPosition(Vector2f(20, 10));
-		textComp->SetColor(sf::Color::Red);
+		textComp->SetColor(sf::Color::White);
 		textComp->SetSize(16);
 
 		textComp2->SetString("Lives: 3");
 		textComp2->SetPosition(Vector2f(RenderingManager::GetWindow()->getSize().x - 100, 10));
-		textComp2->SetColor(sf::Color::Red);
+		textComp2->SetColor(sf::Color::White);
 		textComp2->SetSize(16);
 
 	}
@@ -82,6 +83,13 @@ namespace LLGP
 		//std::cout << "Citizens Remaining: " << _citizensToRescue << std::endl;
 
 		this->SetScore(_currentScore + _scorePerCitizen);
+
+		CheckConditions();
+	}
+
+	void ScoreManager::CitizenCaptured(int eventInput) 
+	{
+		_citizensToRescue--;
 
 		CheckConditions();
 	}

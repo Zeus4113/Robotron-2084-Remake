@@ -20,7 +20,7 @@ namespace LLGP
 		Event<int> OnEnemyDead;
 
 	private:
-		float _MovementSpeed = 0.5f;
+		float _MovementSpeed = 0.35f;
 	};
 }
 

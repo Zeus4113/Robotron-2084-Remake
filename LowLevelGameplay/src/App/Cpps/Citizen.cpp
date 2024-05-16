@@ -52,16 +52,27 @@ namespace LLGP
 	{
 		//std::cout << this->GetGameObject()->GetName() << " is touching " << col->GetGameObject()->GetName() << std::endl;
 
-		if (col->GetGameObject()->CompareType(ObjectTypes::Player))
+		if (col->GetGameObject()->CompareType(ObjectTypes::EnemyHulk))
 		{
 			this->OnDead();
 		}
+
+		if (col->GetGameObject()->CompareType(ObjectTypes::Player))
+		{
+			this->OnRescued();
+		}
+	}
+
+	void Citizen::OnRescued() 
+	{
+		ObjectPool::ReturnObject(this->GetGameObject());
+		OnCitizenRescued(1);
 	}
 
 	void Citizen::OnDead() 
 	{
 		ObjectPool::ReturnObject(this->GetGameObject());
-		OnCitizenRescued(1);
+		OnCitizenCaptured(1);
 	}
 
 	void Citizen::Move(Vector2f destination) 

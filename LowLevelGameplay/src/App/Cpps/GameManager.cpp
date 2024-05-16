@@ -8,6 +8,7 @@ namespace LLGP
 	{
 		ObjectPool::AddObject(LLGP::ObjectTypes::Player, 1);
 		ObjectPool::AddObject(LLGP::ObjectTypes::Enemy, 100);
+		ObjectPool::AddObject(LLGP::ObjectTypes::EnemyHulk, 50);
 		ObjectPool::AddObject(LLGP::ObjectTypes::Bullet, 30);
 		ObjectPool::AddObject(LLGP::ObjectTypes::Trap, 80);
 		ObjectPool::AddObject(LLGP::ObjectTypes::Citizen, 50);

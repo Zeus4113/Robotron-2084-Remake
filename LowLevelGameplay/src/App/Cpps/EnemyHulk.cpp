@@ -16,13 +16,13 @@ namespace LLGP
 
 		// Add and Set Rigidbody Component
 		owner->AddComponent<LLGP::Rigidbody>();
-		owner->GetComponent<LLGP::Rigidbody>()->SetSize(Vector2f(40.f, 40.f) / 3.);
+		owner->GetComponent<LLGP::Rigidbody>()->SetSize(Vector2f(50.f, 50.f) / 3.);
 		owner->GetComponent<LLGP::Rigidbody>()->SetMass(1.f);
 
 		// Add and Set Sprite Component
 		owner->AddComponent<LLGP::Sprite>();
-		owner->GetComponent<LLGP::Sprite>()->SetSize(Vector2f(40.f, 40.f));
-		owner->GetComponent<LLGP::Sprite>()->SetTexture("images/EnemyHulk.png", Vector2f(3, 1));
+		owner->GetComponent<LLGP::Sprite>()->SetSize(Vector2f(50.f, 50.f));
+		owner->GetComponent<LLGP::Sprite>()->SetTexture("images/EnemyHulk.png", Vector2f(3, 3));
 
 		owner->AddComponent<Animator>();
 		owner->GetComponent<Animator>()->SetPlaying(true);
@@ -40,6 +40,7 @@ namespace LLGP
 
 	void EnemyHulk::Move(Vector2f citizenPos)
 	{
+
 		Vector2f direction = Vector2f(
 			citizenPos.x - this->GetGameObject()->transform->position.x,
 			citizenPos.y - this->GetGameObject()->transform->position.y
@@ -48,16 +49,37 @@ namespace LLGP
 		Vector2f norm = direction.Normalise();
 		this->GetGameObject()->GetComponent<Rigidbody>()->SetVelocity(Vector2f(norm.x, norm.y) * _MovementSpeed);
 
+		if (norm == Vector2f::zero)
+		{
+			this->GetGameObject()->GetComponent<Animator>()->SetPlaying(false);
+		}
+		else
+		{
+			this->GetGameObject()->GetComponent<Animator>()->SetPlaying(true);
+
+			if (norm.x > 0)
+			{
+				this->GetGameObject()->GetComponent<Animator>()->SetRow(MovementDirection::Right);
+			}
+			else if (norm.x < 0)
+			{
+				this->GetGameObject()->GetComponent<Animator>()->SetRow(MovementDirection::Left);
+			}
+
+			if (norm.y > 0)
+			{
+				this->GetGameObject()->GetComponent<Animator>()->SetRow(MovementDirection::Up);
+			}
+			else if (norm.y < 0)
+			{
+				this->GetGameObject()->GetComponent<Animator>()->SetRow(MovementDirection::Up);
+			}
+		}
 	}
 
 	void EnemyHulk::OnCollisionEnter(Collider* col)
 	{
-		//std::cout << this->GetGameObject()->GetName() << " is touching " << col->GetGameObject()->GetName() << std::endl;
 
-		if (col->GetGameObject()->CompareType(ObjectTypes::Bullet))
-		{
-			this->OnDead();
-		}
 	}
 
 	void EnemyHulk::OnDead()
